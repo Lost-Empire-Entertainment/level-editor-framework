@@ -1,0 +1,9 @@
+# Game ignored files and folders
+Game/build/
+Game/.vs/
+Game/out/
+
+# Level editor ignored files and folders
+Level editor/build/
+Level editor/.vs/
+Level editor/out/

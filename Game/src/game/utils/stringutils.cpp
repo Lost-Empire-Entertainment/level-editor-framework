@@ -1,4 +1,4 @@
-//Copyright (c) <2024> <Greenlaser>
+//Copyright (c) <2024> <Lost Empire Entertainment>
 
 //level loader
 #include "stringutils.hpp"

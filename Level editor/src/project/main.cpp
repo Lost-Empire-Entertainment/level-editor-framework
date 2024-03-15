@@ -1,9 +1,17 @@
-﻿#include "main.hpp"
+﻿//Copyright (c) <2024> <Greenlaser>
 
-using namespace std;
+//level loader
+#include "core.hpp"
+
+using Core::LevelLoader;
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	LevelLoader::Initialize();
+
+	LevelLoader::Run();
+
+	LevelLoader::Shutdown();
+
 	return 0;
 }

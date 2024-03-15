@@ -27,6 +27,9 @@ set(LIB_DIR "${CMAKE_SOURCE_DIR}/lib")
 set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 # Manually added source file paths
+set(SRC_CORE_DIR "${CMAKE_SOURCE_DIR}/src/game/core")
+set(SRC_GRAPHICS_DIR "${CMAKE_SOURCE_DIR}/src/game/graphics")
+set(SRC_UTILS_DIR "${CMAKE_SOURCE_DIR}/src/game/utils")
 set(EXTERNAL_DIR "${CMAKE_SOURCE_DIR}/src/external")
 
 # Add GLAD
@@ -47,6 +50,9 @@ target_link_libraries(external_libs INTERFACE glad magic_enum)
 # Add your source files
 set(SOURCE_FILES
 	${CMAKE_SOURCE_DIR}/src/game/main.cpp
+	${SRC_CORE_DIR}/core.cpp
+	${SRC_GRAPHICS_DIR}/render.cpp
+	${SRC_UTILS_DIR}/stringutils.cpp
 )
 
 # Add your external files
@@ -75,6 +81,9 @@ target_compile_features(Game PRIVATE cxx_std_20)
 
 target_include_directories(Game PRIVATE 
 	${INCLUDE_DIR}/game
+	${INCLUDE_DIR}/game/core
+	${INCLUDE_DIR}/game/graphics
+	${INCLUDE_DIR}/game/utils
 	${INCLUDE_DIR}/external
 	${INCLUDE_DIR}/external/glad
 	${INCLUDE_DIR}/external/glfw

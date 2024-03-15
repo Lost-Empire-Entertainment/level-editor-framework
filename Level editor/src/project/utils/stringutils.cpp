@@ -12,4 +12,12 @@ namespace Utils
 	{
 		return "";
 	}
+
+	vector<string> StringUtils::Split(
+		const string& input,
+		char delimiter)
+	{
+		vector<string> none;
+		return none;
+	}
 }

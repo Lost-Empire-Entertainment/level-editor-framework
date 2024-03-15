@@ -3,8 +3,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 using std::string;
+using std::vector;
 
 namespace Utils
 {
@@ -22,5 +24,15 @@ namespace Utils
 			const string& original, 
 			const string& search, 
 			const string& replacement);
+
+		/// <summary>
+		/// Split a string into pieces and remove the delimiter.
+		/// </summary>
+		/// <param name="input">The original string.</param>
+		/// <param name="delimiter">Where is the string split from.</param>
+		/// <returns>A vector of all string parts that were split.</returns>
+		static vector<string> Split(
+			const string& input,
+			char delimiter);
 	};
 }

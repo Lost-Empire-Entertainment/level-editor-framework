@@ -5,6 +5,8 @@
 
 namespace Graphics
 {
+	Input Render::camera(Render::window);
+
 	void Render::RenderSetup()
 	{
 

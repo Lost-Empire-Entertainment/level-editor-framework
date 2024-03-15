@@ -65,7 +65,8 @@ namespace Core
 		}
 		else
 		{
-			CreateErrorPopup("Path load error", "Couldn't find level loader documents folder! Shutting down.");
+			string errorMessage = "Couldn't find " + name + " documents folder! Shutting down.";
+			CreateErrorPopup("Path load error", errorMessage.c_str());
 		}
 
 		//

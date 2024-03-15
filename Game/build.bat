@@ -1,5 +1,5 @@
 @echo off
-:: Batch script to build the executable and create the installer for the level editor
+:: Batch script to build the executable and create the installer for the game
 
 :: Reusable message types printed to console
 set "_g_exc_=[GAME_EXCEPTION]"

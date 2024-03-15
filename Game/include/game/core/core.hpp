@@ -19,12 +19,12 @@ namespace Core
 		static inline bool startedWindowLoop;
 
 		/// <summary>
-		/// The main initialization script for the level loader, this is where everything starts.
+		/// The main initialization script for the game, this is where everything starts.
 		/// </summary>
 		static void Initialize();
 
 		/// <summary>
-		/// The main loop of the level loader, this is what is ran every frame.
+		/// The main loop of the game, this is what is ran every frame.
 		/// </summary>
 		static void Run();
 
@@ -38,7 +38,7 @@ namespace Core
 			const char* errorMessage = "NO MESSAGE GIVEN");
 
 		/// <summary>
-		/// Handles the shutdown of the level loader.
+		/// Handles the shutdown of the game.
 		/// </summary>
 		static void Shutdown();
 	};

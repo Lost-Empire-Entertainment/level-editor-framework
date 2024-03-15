@@ -1,6 +1,6 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
-//level editor
+//game
 #include "render.hpp"
 
 namespace Graphics

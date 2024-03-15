@@ -4,7 +4,7 @@
 #include <ShlObj.h>
 #include <filesystem>
 
-//level loader
+//game
 #include "core.hpp"
 #include "stringutils.hpp"
 #include "render.hpp"

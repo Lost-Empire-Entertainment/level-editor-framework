@@ -1,6 +1,6 @@
 ﻿//Copyright (c) <2024> <Lost Empire Entertainment>
 
-//level loader
+//game
 #include "core.hpp"
 
 using Core::Game;

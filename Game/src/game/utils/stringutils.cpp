@@ -1,6 +1,6 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
-//level loader
+//game
 #include "stringutils.hpp"
 
 namespace Utils

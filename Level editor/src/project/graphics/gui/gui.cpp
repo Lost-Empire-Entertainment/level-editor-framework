@@ -19,6 +19,8 @@
 #include "pointlight.hpp"
 #include "selectobject.hpp"
 #include "stringutils.hpp"
+#include "gui_inspector.hpp"
+#include "gui_scenehierarchy.hpp"
 
 using std::cout;
 using std::string;
@@ -232,23 +234,6 @@ namespace Graphics::GUI
 			ImGui::EndMenu();
 		}
 
-		ImGui::SameLine(110 * fontScale * 0.75f);
-
-		if (ImGui::BeginMenu("Window"))
-		{
-			if (ImGui::MenuItem("Scene hierarchy"))
-			{
-				//GUISceneHierarchy::renderSceneHierarchy = true;
-			}
-
-			if (ImGui::MenuItem("Inspector"))
-			{
-				//GUIInspector::renderInspector = true;
-			}
-
-			ImGui::EndMenu();
-		}
-
 		ImGui::EndMainMenuBar();
 	}
 
@@ -278,8 +263,8 @@ namespace Graphics::GUI
 
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), dockFlags);
 
-		//GUIInspector::RenderInspector();
-		//GUISceneHierarchy::RenderSceneHierarchy();
+		SceneHierarchy::RenderSceneHierarchy();
+		Inspector::RenderInspector();
 
 		if (renderUnsavedShutdownWindow) ConfirmUnsavedShutdown();
 		if (renderUnsavedSceneSwitchWindow) ConfirmUnsavedSceneSwitch();

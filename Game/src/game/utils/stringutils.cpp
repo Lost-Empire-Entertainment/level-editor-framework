@@ -1,7 +1,13 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+
 //game
 #include "stringutils.hpp"
+
+using std::istringstream;
 
 namespace Utils
 {
@@ -24,7 +30,13 @@ namespace Utils
 		const string& input,
 		char delimiter)
 	{
-		vector<string> none;
-		return none;
+		vector<string> tokens;
+		string token;
+		istringstream tokenStream(input);
+		while (getline(tokenStream, token, delimiter))
+		{
+			tokens.push_back(token);
+		}
+		return tokens;
 	}
 }

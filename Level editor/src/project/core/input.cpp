@@ -16,7 +16,7 @@
 //engine
 //#include "gui.hpp"
 #include "render.hpp"
-//#include "timeManager.hpp"
+#include "timemanager.hpp"
 #include "stringUtils.hpp"
 #include "input.hpp"
 #include "selectobject.hpp"
@@ -194,10 +194,10 @@ namespace Core
 	{
         //toggle camera input on and off
         if (key == GLFW_KEY_ESCAPE
-            && action == GLFW_PRESS
-            && ((!ImGui::GetIO().WantCaptureMouse
-            && !cameraEnabled)
-            || cameraEnabled))
+            && action == GLFW_PRESS)
+            //&& ((!ImGui::GetIO().WantCaptureMouse
+            //&& !cameraEnabled)
+            //|| cameraEnabled))
         {
             cameraEnabled = !cameraEnabled;
             cameraModeSwitched = true;
@@ -206,7 +206,7 @@ namespace Core
         }
 
         if (!cameraEnabled
-            && !ImGui::GetIO().WantCaptureMouse)
+            )//&& !ImGui::GetIO().WantCaptureMouse)
         {
             //delete selected gameobject
             if (key == GLFW_KEY_DELETE
@@ -335,7 +335,7 @@ namespace Core
 
             Render::camera.ProcessMouseMovement(xpos, ypos);
 
-            cameraSpeed = static_cast<float>(2.5f); //* TimeManager::deltaTime);
+            cameraSpeed = static_cast<float>(2.5f * TimeManager::deltaTime);
         }
         else
         {
@@ -345,7 +345,7 @@ namespace Core
                 cursorNormal = true;
             }
 
-            ImGui::GetIO().MousePos = ImVec2(static_cast<float>(xpos), static_cast<float>(ypos));
+            //ImGui::GetIO().MousePos = ImVec2(static_cast<float>(xpos), static_cast<float>(ypos));
         }
     }
 

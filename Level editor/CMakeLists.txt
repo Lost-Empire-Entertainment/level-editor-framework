@@ -57,6 +57,7 @@ set(SOURCE_FILES
 	${CMAKE_SOURCE_DIR}/src/project/main.cpp
 	${SRC_CORE_DIR}/core.cpp
 	${SRC_CORE_DIR}/input.cpp
+	${SRC_CORE_DIR}/timemanager.cpp
 	${SRC_GRAPHICS_DIR}/grid.cpp
 	${SRC_GRAPHICS_DIR}/render.cpp
 	${SRC_GRAPHICS_DIR}/shader.cpp

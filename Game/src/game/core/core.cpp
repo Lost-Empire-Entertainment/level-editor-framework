@@ -9,6 +9,7 @@
 #include "core.hpp"
 #include "stringutils.hpp"
 #include "render.hpp"
+#include "timemanager.hpp"
 
 using std::cout;
 using std::wstring;
@@ -114,6 +115,8 @@ namespace Core
 
 		while (!glfwWindowShouldClose(Render::window))
 		{
+			TimeManager::UpdateDeltaTime();
+
 			Render::WindowLoop();
 		}
 

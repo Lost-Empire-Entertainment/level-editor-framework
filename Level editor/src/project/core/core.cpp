@@ -25,6 +25,11 @@ namespace Core
 {
 	void LevelLoader::Initialize()
 	{
+		cout << "Copyright (c) <2024> <Lost Empire Entertainment>\n\n";
+		cout << "==================================================\n\n";
+
+		cout << "Initializing " << name << "...\n\n";
+
 		//
 		// SET DOCUMENTS PATH
 		//
@@ -82,8 +87,8 @@ namespace Core
 			CreateErrorPopup("Path load error", "Couldn't find files folder! Shutting down.");
 			return;
 		}
-		cout << "Set files path to " << filesPath << "\n";
 		filesPath = fsFilesPath.string();
+		cout << "Set files path to " << filesPath << "\n";
 
 		//
 		// COPY config.txt TO ENGINE DOCUMENTS FOLDER IF config.txt DOESNT EXIST
@@ -95,16 +100,23 @@ namespace Core
 		}
 
 		Render::RenderSetup();
+
+		cout << "\nInitialization complete!\n\n";
+		cout << "==================================================\n\n";
 	}
 
 	void LevelLoader::Run()
 	{
+		cout << "Entering window loop...\n\n";
+
 		startedWindowLoop = true;
 
 		while (!glfwWindowShouldClose(Render::window))
 		{
 			Render::WindowLoop();
 		}
+
+		cout << "Exiting window loop...\n\n";
 	}
 
 	void LevelLoader::CreateErrorPopup(
@@ -118,6 +130,8 @@ namespace Core
 
 	void LevelLoader::Shutdown()
 	{
+		cout << "Shutting down...\n\n";
+
 		//clean all glfw resources after program is closed
 		glfwTerminate();
 	}

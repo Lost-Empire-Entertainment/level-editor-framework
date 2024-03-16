@@ -10,7 +10,14 @@ namespace Utils
 		const string& search,
 		const string& replacement)
 	{
-		return "";
+		string result = original;
+		size_t pos = 0;
+		while ((pos = result.find(search, pos)) != string::npos)
+		{
+			result.replace(pos, search.length(), replacement);
+			pos += replacement.length();
+		}
+		return result;
 	}
 
 	vector<string> StringUtils::Split(

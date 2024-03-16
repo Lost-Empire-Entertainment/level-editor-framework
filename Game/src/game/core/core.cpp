@@ -25,6 +25,11 @@ namespace Core
 {
 	void Game::Initialize()
 	{
+		cout << "Copyright (c) <2024> <Lost Empire Entertainment>\n\n";
+		cout << "==================================================\n\n";
+
+		cout << "Initializing " << name << "...\n\n";
+
 		//
 		// SET DOCUMENTS PATH
 		//
@@ -95,16 +100,24 @@ namespace Core
 		}
 
 		Render::RenderSetup();
+
+		cout << "\nInitialization complete!\n\n";
+
+		cout << "==================================================\n\n";
 	}
 
 	void Game::Run()
 	{
+		cout << "Entering window loop...\n\n";
+
 		startedWindowLoop = true;
 
 		while (!glfwWindowShouldClose(Render::window))
 		{
 			Render::WindowLoop();
 		}
+
+		cout << "Exiting window loop...\n\n";
 	}
 
 	void Game::CreateErrorPopup(
@@ -118,6 +131,8 @@ namespace Core
 
 	void Game::Shutdown()
 	{
+		cout << "Shutting down...\n\n";
+
 		//clean all glfw resources after program is closed
 		glfwTerminate();
 	}

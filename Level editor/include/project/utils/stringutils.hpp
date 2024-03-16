@@ -34,5 +34,19 @@ namespace Utils
 		static vector<string> Split(
 			const string& input,
 			char delimiter);
+
+		/// <summary>
+		/// Checks whether the inputted string can be converted to float or not.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		static bool CanConvertStringToFloat(const string& value);
+
+		/// <summary>
+		/// Checks whether the inputted string can be converted to int or not.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		static bool CanConvertStringToInt(const string& value);
 	};
 }

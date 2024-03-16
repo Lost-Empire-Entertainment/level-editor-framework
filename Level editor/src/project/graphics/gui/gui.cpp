@@ -1,5 +1,9 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
+#include <iostream>
+#include <string>
+#include <filesystem>
+
 //external
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -9,9 +13,27 @@
 #include "gui.hpp"
 #include "render.hpp"
 #include "core.hpp"
+#include "gameobject.hpp"
+#include "cube.hpp"
+#include "spotlight.hpp"
+#include "pointlight.hpp"
+#include "selectobject.hpp"
+#include "stringutils.hpp"
+
+using std::cout;
+using std::string;
+using std::to_string;
+using std::filesystem::path;
+using std::filesystem::directory_iterator;
+using std::filesystem::create_directory;
 
 using Core::LevelEditor;
+using Utils::StringUtils;
+using Physics::Select;
 using Graphics::Render;
+using Graphics::Shape::Cube;
+using Graphics::Shape::PointLight;
+using Graphics::Shape::SpotLight;
 
 namespace Graphics::GUI
 {
@@ -83,6 +105,153 @@ namespace Graphics::GUI
 		return static_cast<float>(videoMode->refreshRate);
 	}
 
+	void LevelEditorGUI::RenderTopBar()
+	{
+		ImGui::BeginMainMenuBar();
+
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Save"))
+			{
+				//SceneFile::SaveCurrentScene();
+				//ConfigFileManager::SaveData();
+			}
+
+			if (ImGui::MenuItem("New level"))
+			{
+				int highestFolderNumber = 1;
+				for (const auto& entry : directory_iterator(LevelEditor::filesPath))
+				{
+					path entryPath = entry.path();
+					if (is_directory(entryPath))
+					{
+						string folderName = entryPath.stem().string();
+
+						if (folderName.find("Scene") != string::npos)
+						{
+							size_t pos = folderName.find_first_of('e', folderName.find_first_of('e') + 1);
+							string result = folderName.substr(pos + 1);
+							if (result != ""
+								&& StringUtils::CanConvertStringToInt(result))
+							{
+								int number = stoi(result);
+								if (number == highestFolderNumber) highestFolderNumber = ++number;
+							}
+						}
+					}
+				}
+				string newFolderPath = LevelEditor::filesPath + "/Scene" + to_string(highestFolderNumber);
+				create_directory(newFolderPath);
+				//SceneFile::CreateNewScene(newFolderPath + "/scene.txt");
+			}
+
+			if (ImGui::MenuItem("Exit")) LevelEditor::Shutdown();
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::SameLine(50 * fontScale * 0.75f);
+
+		if (ImGui::BeginMenu("Asset"))
+		{
+			if (ImGui::BeginMenu("Shape"))
+			{
+				if (ImGui::MenuItem("Cube"))
+				{
+					shared_ptr<GameObject> obj = Cube::InitializeCube();
+
+					Select::selectedObj = obj;
+					Select::isObjectSelected = true;
+
+					unsigned int ID = obj->GetID();
+					vec3 pos = obj->GetTransform()->GetPosition();
+					string posX = to_string(pos.x);
+					string posY = to_string(pos.y);
+					string posZ = to_string(pos.z);
+
+					string output =
+						"Successfully created " + obj->GetName() +
+						" with ID " + to_string(obj->GetID()) +
+						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+					cout << output;
+
+					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+				}
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Light source"))
+			{
+				if (ImGui::MenuItem("Point light"))
+				{
+					shared_ptr<GameObject> obj = PointLight::InitializePointLight();
+
+					Select::selectedObj = obj;
+					Select::isObjectSelected = true;
+
+					unsigned int ID = obj->GetID();
+					vec3 pos = obj->GetTransform()->GetPosition();
+					string posX = to_string(pos.x);
+					string posY = to_string(pos.y);
+					string posZ = to_string(pos.z);
+
+					string output =
+						"Successfully created " + obj->GetName() +
+						" with ID " + to_string(obj->GetID()) +
+						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+					cout << output;
+
+					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+				}
+				if (ImGui::MenuItem("Spotlight"))
+				{
+					shared_ptr<GameObject> obj = SpotLight::InitializeSpotLight();
+
+					Select::selectedObj = obj;
+					Select::isObjectSelected = true;
+
+					unsigned int ID = obj->GetID();
+					vec3 pos = obj->GetTransform()->GetPosition();
+					string posX = to_string(pos.x);
+					string posY = to_string(pos.y);
+					string posZ = to_string(pos.z);
+
+					string output =
+						"Successfully created " + obj->GetName() +
+						" with ID " + to_string(obj->GetID()) +
+						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+					cout << output;
+
+					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+				}
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::SameLine(110 * fontScale * 0.75f);
+
+		if (ImGui::BeginMenu("Window"))
+		{
+			if (ImGui::MenuItem("Scene hierarchy"))
+			{
+				//GUISceneHierarchy::renderSceneHierarchy = true;
+			}
+
+			if (ImGui::MenuItem("Inspector"))
+			{
+				//GUIInspector::renderInspector = true;
+			}
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndMainMenuBar();
+	}
+
 	void LevelEditorGUI::ConfirmUnsavedShutdown()
 	{
 
@@ -102,7 +271,7 @@ namespace Graphics::GUI
 		ImGuiIO& io = ImGui::GetIO();
 		maxSize = ImVec2(io.DisplaySize.x, io.DisplaySize.y - 200);
 
-		//RenderTopBar();
+		RenderTopBar();
 
 		ImGuiDockNodeFlags dockFlags =
 			ImGuiDockNodeFlags_PassthruCentralNode;

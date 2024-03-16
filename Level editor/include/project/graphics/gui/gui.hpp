@@ -10,7 +10,7 @@ namespace Graphics::GUI
 	class LevelEditorGUI
 	{
 	public:
-		static inline float fontScale;
+		static inline float fontScale = 1.5f;
 
 		static inline ImVec2 initialPos;
 		static inline ImVec2 initialSize;
@@ -32,6 +32,8 @@ namespace Graphics::GUI
 		static void Render();
 		static void Shutdown();
 	private:
+		static void RenderTopBar();
+
 		static void ConfirmUnsavedShutdown();
 
 		static void ConfirmUnsavedSceneSwitch();

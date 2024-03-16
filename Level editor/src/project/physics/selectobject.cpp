@@ -38,7 +38,6 @@ namespace Physics
 
 	int Select::CheckRayObjectIntersections(const Ray& ray, const vector<shared_ptr<GameObject>>& objects)
 	{
-		/*
 		//if user pressed left mouse button over any imgui window
 		if (ImGui::GetIO().WantCaptureMouse)
 		{
@@ -61,8 +60,5 @@ namespace Physics
 			//if user did not press any valid gameobject
 			return -1;
 		}
-		*/
-
-		return 0;
 	}
 }

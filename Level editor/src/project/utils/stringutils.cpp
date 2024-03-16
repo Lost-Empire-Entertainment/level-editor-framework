@@ -39,4 +39,20 @@ namespace Utils
 		}
 		return tokens;
 	}
+
+	bool StringUtils::CanConvertStringToFloat(const string& value)
+	{
+		size_t pos;
+		float convertedValue = stof(value, &pos);
+
+		return pos == value.length();
+	}
+
+	bool StringUtils::CanConvertStringToInt(const string& value)
+	{
+		size_t pos;
+		int convertedValue = stoi(value, &pos);
+
+		return pos == value.length();
+	}
 }

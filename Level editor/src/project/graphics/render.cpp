@@ -22,7 +22,7 @@
 using std::cout;
 using glm::perspective;
 
-using Core::LevelLoader;
+using Core::LevelEditor;
 using Core::TimeManager;
 using Graphics::Shape::GameObject;
 using Graphics::Shape::GameObjectManager;
@@ -47,7 +47,7 @@ namespace Graphics
 
 	void Render::GLFWSetup()
 	{
-		cout << "Initializing GLFW...\n";
+		cout << "\nInitializing GLFW...\n";
 
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -64,13 +64,13 @@ namespace Graphics
 		window = glfwCreateWindow(
 			SCR_WIDTH,
 			SCR_HEIGHT,
-			(LevelLoader::name + " " + LevelLoader::version).c_str(),
+			(LevelEditor::name + " " + LevelEditor::version).c_str(),
 			NULL,
 			NULL);
 
 		if (window == NULL)
 		{
-			LevelLoader::CreateErrorPopup("Initialization failed", "Failed to create GLFW window!");
+			LevelEditor::CreateErrorPopup("Initialization failed", "Failed to create GLFW window!");
 		}
 
 		glfwMakeContextCurrent(window);
@@ -80,7 +80,7 @@ namespace Graphics
 		glfwSwapInterval(1);
 
 		int width, height, channels;
-		string iconpath = LevelLoader::filesPath + "/icon.png";
+		string iconpath = LevelEditor::filesPath + "/icon.png";
 		unsigned char* iconData = stbi_load(iconpath.c_str(), &width, &height, &channels, 4);
 
 		GLFWimage icon{};
@@ -96,7 +96,7 @@ namespace Graphics
 		glfwSetKeyCallback(window, Input::KeyCallback);
 		glfwSetCursorPosCallback(window, Input::MouseMovementCallback);
 
-		glfwSetWindowCloseCallback(window, [](GLFWwindow* window) { LevelLoader::Shutdown(); });
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window) { LevelEditor::Shutdown(); });
 
 		cout << "Window created successfully!\n\n";
 	}
@@ -107,7 +107,7 @@ namespace Graphics
 		//check if glad is initialized before continuing
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			LevelLoader::CreateErrorPopup("Initialization failed", "Failed to initialize GLAD!");
+			LevelEditor::CreateErrorPopup("Initialization failed", "Failed to initialize GLAD!");
 		}
 
 		cout << "GLAD initialized successfully!\n\n";
@@ -149,8 +149,8 @@ namespace Graphics
 		//SceneFile::unsavedChanges = state;
 
 		string newName = state == true
-			? LevelLoader::name + " " + LevelLoader::version + "*"
-			: LevelLoader::name + " " + LevelLoader::version;
+			? LevelEditor::name + " " + LevelEditor::version + "*"
+			: LevelEditor::name + " " + LevelEditor::version;
 		glfwSetWindowTitle(Render::window, newName.c_str());
 	}
 

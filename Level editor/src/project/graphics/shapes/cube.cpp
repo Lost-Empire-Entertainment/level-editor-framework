@@ -31,7 +31,7 @@ using Graphics::Texture;
 using Graphics::Shape::Mesh;
 using MeshType = Graphics::Shape::Mesh::MeshType;
 using Graphics::Shape::Material;
-using Core::LevelLoader;
+using Core::LevelEditor;
 
 namespace Graphics::Shape
 {
@@ -98,8 +98,8 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(MeshType::cube);
 
 		Shader cubeShader = Shader(
-			LevelLoader::filesPath + "/" + vertShader,
-			LevelLoader::filesPath + "/" + fragShader);
+			LevelEditor::filesPath + "/" + vertShader,
+			LevelEditor::filesPath + "/" + fragShader);
 
 		GLuint vao, vbo;
 
@@ -137,7 +137,7 @@ namespace Graphics::Shape
 			mat,
 			basicShape);
 
-		Texture tex(LevelLoader::filesPath);
+		Texture tex(LevelEditor::filesPath);
 
 		tex.LoadTexture(obj, diffTexture, false, GL_RGBA);
 		tex.LoadTexture(obj, specTexture, false, GL_RGBA);

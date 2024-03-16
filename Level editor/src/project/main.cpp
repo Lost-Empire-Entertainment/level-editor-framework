@@ -1,17 +1,17 @@
 ﻿//Copyright (c) <2024> <Lost Empire Entertainment>
 
-//level loader
+//level editor
 #include "core.hpp"
 
-using Core::LevelLoader;
+using Core::LevelEditor;
 
 int main()
 {
-	LevelLoader::Initialize();
+	LevelEditor::Initialize();
 
-	LevelLoader::Run();
+	LevelEditor::Run();
 
-	LevelLoader::Shutdown();
+	LevelEditor::Shutdown();
 
 	return 0;
 }

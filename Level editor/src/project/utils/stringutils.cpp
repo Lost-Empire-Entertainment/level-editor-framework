@@ -4,7 +4,7 @@
 #include <sstream>
 #include <algorithm>
 
-//level loader
+//level editor
 #include "stringutils.hpp"
 
 using std::istringstream;

@@ -26,7 +26,7 @@ using Graphics::Shape::Mesh;
 using Type = Graphics::Shape::Mesh::MeshType;
 using Graphics::Shape::Material;
 using Graphics::Shape::GameObjectManager;
-using Core::LevelLoader;
+using Core::LevelEditor;
 using Graphics::Render;
 using Physics::Select;
 using Core::Input;
@@ -51,8 +51,8 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(Type::actionTex);
 
 		Shader borderShader = Shader(
-			LevelLoader::filesPath + "/shaders/Basic_texture.vert",
-			LevelLoader::filesPath + "/shaders/Basic_texture.frag");
+			LevelEditor::filesPath + "/shaders/Basic_texture.vert",
+			LevelEditor::filesPath + "/shaders/Basic_texture.frag");
 
 		GLuint vao, vbo;
 
@@ -91,7 +91,7 @@ namespace Graphics::Shape
 
 		GameObjectManager::AddGameObject(obj);
 
-		Texture tex(LevelLoader::filesPath);
+		Texture tex(LevelEditor::filesPath);
 		tex.LoadTexture(obj, "icons/blank.png", true, GL_RGBA);
 		tex.LoadTexture(obj, "icons/move.png", true, GL_RGBA);
 		tex.LoadTexture(obj, "icons/rotate.png", true, GL_RGBA);

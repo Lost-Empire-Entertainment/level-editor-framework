@@ -33,6 +33,7 @@ set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 set(SRC_CORE_DIR "${CMAKE_SOURCE_DIR}/src/project/core")
 set(SRC_GRAPHICS_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics")
 set(SRC_GRAPHICS_SHAPES_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics/shapes")
+set(SRC_GRAPHICS_GUI_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics/gui")
 set(SRC_PHYSICS_DIR "${CMAKE_SOURCE_DIR}/src/project/physics")
 set(SRC_UTILS_DIR "${CMAKE_SOURCE_DIR}/src/project/utils")
 set(EXTERNAL_DIR "${CMAKE_SOURCE_DIR}/src/external")
@@ -69,6 +70,7 @@ set(SOURCE_FILES
 	${SRC_GRAPHICS_SHAPES_DIR}/selectedobjectaction.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/selectedobjectborder.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/spotlight.cpp
+	${SRC_GRAPHICS_GUI_DIR}/gui.cpp
 	${SRC_PHYSICS_DIR}/collision.cpp
 	${SRC_PHYSICS_DIR}/selectobject.cpp
 	${SRC_UTILS_DIR}/stringutils.cpp
@@ -103,6 +105,7 @@ target_include_directories(Level_editor PRIVATE
 	${INCLUDE_DIR}/project/core
 	${INCLUDE_DIR}/project/graphics
 	${INCLUDE_DIR}/project/graphics/shapes
+	${INCLUDE_DIR}/project/graphics/gui
 	${INCLUDE_DIR}/project/physics
 	${INCLUDE_DIR}/project/utils
 	${INCLUDE_DIR}/external

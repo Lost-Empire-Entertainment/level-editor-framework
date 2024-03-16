@@ -11,7 +11,7 @@
 using glm::mat4;
 
 using Graphics::Shader;
-using Core::LevelLoader;
+using Core::LevelEditor;
 
 namespace Graphics
 {
@@ -43,8 +43,8 @@ namespace Graphics
 		}
 
 		shader = Shader(
-			LevelLoader::filesPath + "/shaders/Basic.vert",
-			LevelLoader::filesPath + "/shaders/Basic.frag");
+			LevelEditor::filesPath + "/shaders/Basic.vert",
+			LevelEditor::filesPath + "/shaders/Basic.frag");
 
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);

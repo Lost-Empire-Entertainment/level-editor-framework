@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <iostream>
 
-//level loader
+//level editor
 #include "core.hpp"
 #include "stringutils.hpp"
 #include "render.hpp"
@@ -24,7 +24,7 @@ using Graphics::Render;
 
 namespace Core
 {
-	void LevelLoader::Initialize()
+	void LevelEditor::Initialize()
 	{
 		cout << "Copyright (c) <2024> <Lost Empire Entertainment>\n\n";
 		cout << "==================================================\n\n";
@@ -106,7 +106,7 @@ namespace Core
 		cout << "==================================================\n\n";
 	}
 
-	void LevelLoader::Run()
+	void LevelEditor::Run()
 	{
 		cout << "Entering window loop...\n\n";
 
@@ -122,7 +122,7 @@ namespace Core
 		cout << "Exiting window loop...\n\n";
 	}
 
-	void LevelLoader::CreateErrorPopup(
+	void LevelEditor::CreateErrorPopup(
 		const char* errorTitle,
 		const char* errorMessage)
 	{
@@ -131,7 +131,7 @@ namespace Core
 		if (result == IDOK) Shutdown();
 	}
 
-	void LevelLoader::Shutdown()
+	void LevelEditor::Shutdown()
 	{
 		cout << "Shutting down...\n\n";
 

@@ -1,6 +1,7 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
 #include <iostream>
+#include <memory>
 
 //external
 #include "glad.h"
@@ -15,13 +16,16 @@
 #include "timemanager.hpp"
 #include "core.hpp"
 #include "gameobject.hpp"
+#include "cube.hpp"
 
 using std::cout;
+using std::shared_ptr;
 using glm::perspective;
 
 using Core::TimeManager;
 using Core::Game;
 using Graphics::Shape::GameObjectManager;
+using Graphics::Shape::Cube;
 
 namespace Graphics
 {
@@ -40,14 +44,14 @@ namespace Graphics
 
 	void Render::GLFWSetup()
 	{
-		cout << "Initializing GLFW...\n";
+		cout << "\nInitializing GLFW...\n";
 
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		cout << "GLFW initialized successfully!\n";
+		cout << "GLFW initialized successfully!\n\n";
 	}
 	void Render::WindowSetup()
 	{
@@ -91,7 +95,7 @@ namespace Graphics
 
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* window) { Game::Shutdown(); });
 
-		cout << "Window created successfully!\n";
+		cout << "Window created successfully!\n\n";
 	}
 	void Render::GladSetup()
 	{
@@ -116,6 +120,21 @@ namespace Graphics
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		UpdateAfterRescale(window, SCR_WIDTH, SCR_HEIGHT);
+
+		shared_ptr<GameObject> cube1 = Cube::InitializeCube();
+		cube1->GetTransform()->SetPosition(vec3(0.0f, -1.0f, 0.0f));
+
+		shared_ptr<GameObject> cube2 = Cube::InitializeCube();
+		cube2->GetTransform()->SetPosition(vec3(1.0f, -1.0f, 0.0f));
+
+		shared_ptr<GameObject> cube3 = Cube::InitializeCube();
+		cube3->GetTransform()->SetPosition(vec3(0.0f, -1.0f, -1.0f));
+
+		shared_ptr<GameObject> cube4 = Cube::InitializeCube();
+		cube4->GetTransform()->SetPosition(vec3(-1.0f, -1.0f, 0.0f));
+
+		shared_ptr<GameObject> cube5 = Cube::InitializeCube();
+		cube5->GetTransform()->SetPosition(vec3(0.0f, -1.0f, 1.0f));
 	}
 
 	void Render::UpdateAfterRescale(GLFWwindow* window, int width, int height)

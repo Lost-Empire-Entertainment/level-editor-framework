@@ -23,7 +23,7 @@ using Graphics::Shape::Mesh;
 using Type = Graphics::Shape::Mesh::MeshType;
 using Graphics::Shape::Material;
 using Graphics::Shape::GameObjectManager;
-using Core::LevelLoader;
+using Core::LevelEditor;
 using Graphics::Render;
 using Physics::Select;
 
@@ -77,8 +77,8 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(Type::border);
 
 		Shader borderShader = Shader(
-			LevelLoader::filesPath + "/shaders/Basic_model.vert",
-			LevelLoader::filesPath + "/shaders/Basic.frag");
+			LevelEditor::filesPath + "/shaders/Basic_model.vert",
+			LevelEditor::filesPath + "/shaders/Basic.frag");
 
 		GLuint vao, vbo;
 

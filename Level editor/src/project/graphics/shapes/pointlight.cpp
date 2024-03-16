@@ -24,7 +24,7 @@ using Graphics::Shape::Mesh;
 using Type = Graphics::Shape::Mesh::MeshType;
 using Graphics::Shape::Material;
 using Graphics::Shape::GameObjectManager;
-using Core::LevelLoader;
+using Core::LevelEditor;
 using Graphics::Render;
 using Physics::Select;
 
@@ -95,8 +95,8 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(Type::point_light);
 
 		Shader pointLightShader = Shader(
-			LevelLoader::filesPath + "/" + vertShader,
-			LevelLoader::filesPath + "/" + fragShader);
+			LevelEditor::filesPath + "/" + vertShader,
+			LevelEditor::filesPath + "/" + fragShader);
 
 		GLuint vao, vbo;
 

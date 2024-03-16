@@ -3,12 +3,14 @@
 #include <Windows.h>
 #include <ShlObj.h>
 #include <filesystem>
+#include <iostream>
 
 //level loader
 #include "core.hpp"
 #include "stringutils.hpp"
 #include "render.hpp"
 
+using std::cout;
 using std::wstring;
 using std::filesystem::exists;
 using std::filesystem::create_directory;
@@ -61,6 +63,7 @@ namespace Core
 				string(narrowPath.begin(), narrowPath.end()), "\\", "/") +
 				"/" + name;
 
+			cout << "Set documents path to " << docsPath << "\n";
 			if (!exists(docsPath)) create_directory(docsPath);
 		}
 		else
@@ -79,6 +82,7 @@ namespace Core
 			CreateErrorPopup("Path load error", "Couldn't find files folder! Shutting down.");
 			return;
 		}
+		cout << "Set files path to " << filesPath << "\n";
 		filesPath = fsFilesPath.string();
 
 		//

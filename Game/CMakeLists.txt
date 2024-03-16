@@ -131,5 +131,28 @@ target_compile_definitions(Game PRIVATE GLFW_INCLUDE_NONE)
 set(CMAKE_INSTALL_BINDIR bin)
 install(TARGETS Game DESTINATION ${CMAKE_INSTALL_BINDIR})
 
+# Copy "files" directory to the install directory after build
+add_custom_command(TARGET Game POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E remove_directory
+    $<TARGET_FILE_DIR:Game>/files
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/files $<TARGET_FILE_DIR:Game>/files
+)
+
+# Copy ""LICENSE.md" and "README.md" to install directory after build
+add_custom_command(TARGET Game POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E remove
+    $<TARGET_FILE_DIR:Game>/LICENSE.md
+	COMMAND ${CMAKE_COMMAND} -E copy
+    ${PARENT_DIR_PATH}/LICENSE.md
+    $<TARGET_FILE_DIR:Game>/LICENSE.md
+	
+	COMMAND ${CMAKE_COMMAND} -E remove
+    $<TARGET_FILE_DIR:Game>/README.md
+	COMMAND ${CMAKE_COMMAND} -E copy
+    ${PARENT_DIR_PATH}/README.md
+    $<TARGET_FILE_DIR:Game>/README.md
+)
+
 # Include CPack to enable packaging
 include(CPack)

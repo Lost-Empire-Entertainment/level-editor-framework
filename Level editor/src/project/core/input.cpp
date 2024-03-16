@@ -14,7 +14,7 @@
 #include "magic_enum.hpp"
 
 //engine
-//#include "gui.hpp"
+#include "gui.hpp"
 #include "render.hpp"
 #include "timemanager.hpp"
 #include "stringUtils.hpp"
@@ -194,10 +194,10 @@ namespace Core
 	{
         //toggle camera input on and off
         if (key == GLFW_KEY_ESCAPE
-            && action == GLFW_PRESS)
-            //&& ((!ImGui::GetIO().WantCaptureMouse
-            //&& !cameraEnabled)
-            //|| cameraEnabled))
+            && action == GLFW_PRESS
+            && ((!ImGui::GetIO().WantCaptureMouse
+            && !cameraEnabled)
+            || cameraEnabled))
         {
             cameraEnabled = !cameraEnabled;
             cameraModeSwitched = true;
@@ -206,7 +206,7 @@ namespace Core
         }
 
         if (!cameraEnabled
-            )//&& !ImGui::GetIO().WantCaptureMouse)
+            && !ImGui::GetIO().WantCaptureMouse)
         {
             //delete selected gameobject
             if (key == GLFW_KEY_DELETE
@@ -345,7 +345,7 @@ namespace Core
                 cursorNormal = true;
             }
 
-            //ImGui::GetIO().MousePos = ImVec2(static_cast<float>(xpos), static_cast<float>(ypos));
+            ImGui::GetIO().MousePos = ImVec2(static_cast<float>(xpos), static_cast<float>(ypos));
         }
     }
 

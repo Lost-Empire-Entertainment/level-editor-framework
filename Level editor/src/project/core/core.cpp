@@ -10,6 +10,7 @@
 #include "stringutils.hpp"
 #include "render.hpp"
 #include "timemanager.hpp"
+#include "gui.hpp"
 
 using std::cout;
 using std::wstring;
@@ -21,6 +22,7 @@ using std::filesystem::copy_file;
 
 using Utils::StringUtils;
 using Graphics::Render;
+using Graphics::GUI::LevelEditorGUI;
 
 namespace Core
 {
@@ -134,6 +136,8 @@ namespace Core
 	void LevelEditor::Shutdown()
 	{
 		cout << "Shutting down...\n\n";
+
+		LevelEditorGUI::Shutdown();
 
 		//clean all glfw resources after program is closed
 		glfwTerminate();

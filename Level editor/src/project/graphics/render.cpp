@@ -18,6 +18,7 @@
 #include "selectedobjectaction.hpp"
 #include "selectedobjectborder.hpp"
 #include "grid.hpp"
+#include "gui.hpp"
 
 using std::cout;
 using glm::perspective;
@@ -29,6 +30,7 @@ using Graphics::Shape::GameObjectManager;
 using Graphics::Shape::ActionTex;
 using Graphics::Shape::Border;
 using Graphics::Grid;
+using Graphics::GUI::LevelEditorGUI;
 
 namespace Graphics
 {
@@ -41,6 +43,8 @@ namespace Graphics
 		Render::GladSetup();
 
 		Render::ContentSetup();
+
+		LevelEditorGUI::Initialize();
 
 		TimeManager::InitializeDeltaTime();
 	}
@@ -180,7 +184,7 @@ namespace Graphics
 
 		GameObjectManager::RenderAll(view, projection);
 
-		//EngineGUI::GetInstance().Render();
+		LevelEditorGUI::Render();
 
 		//swap the front and back buffers
 		glfwSwapBuffers(window);

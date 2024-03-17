@@ -21,8 +21,8 @@
 #include "input.hpp"
 #include "selectobject.hpp"
 #include "gameobject.hpp"
-//#include "sceneFile.hpp"
-//#include "configFile.hpp"
+#include "levelfile.hpp"
+#include "configFile.hpp"
 
 using std::cout;
 using std::endl;
@@ -38,8 +38,8 @@ using std::numeric_limits;
 
 using Physics::Select;
 using Graphics::Render;
-//using EngineFile::SceneFile;
-//using EngineFile::ConfigFileManager;
+using File::LevelFile;
+using File::ConfigFileManager;
 using Graphics::Shape::GameObjectManager;
 
 namespace Core
@@ -217,7 +217,7 @@ namespace Core
                 Select::selectedObj = nullptr;
                 GameObjectManager::DestroyGameObject(selectedObj);
 
-                //if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+                if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
             }
 
             //save current scene
@@ -225,8 +225,10 @@ namespace Core
                 && mods == GLFW_MOD_CONTROL
                 && action == GLFW_PRESS)
             {
-                //SceneFile::SaveCurrentScene();
-                //ConfigFileManager::SaveData();
+                LevelFile::SaveLevel();
+                ConfigFileManager::SaveConfigFile();
+
+                if (LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(false);
             }
 
             if (Select::selectedObj != nullptr)

@@ -19,6 +19,8 @@
 #include "selectedobjectborder.hpp"
 #include "grid.hpp"
 #include "gui.hpp"
+#include "configfile.hpp"
+#include "levelfile.hpp"
 
 using std::cout;
 using glm::perspective;
@@ -31,6 +33,8 @@ using Graphics::Shape::ActionTex;
 using Graphics::Shape::Border;
 using Graphics::Grid;
 using Graphics::GUI::LevelEditorGUI;
+using File::ConfigFileManager;
+using File::LevelFile;
 
 namespace Graphics
 {
@@ -146,11 +150,17 @@ namespace Graphics
 
 		//Set the viewport based on the aspect ratio
 		glViewport(0, 0, width, height);
+
+		if (LevelEditor::startedWindowLoop
+			&& !LevelFile::unsavedChanges)
+		{
+			Render::SetWindowNameAsUnsaved(true);
+		}
 	}
 
 	void Render::SetWindowNameAsUnsaved(bool state)
 	{
-		//SceneFile::unsavedChanges = state;
+		LevelFile::unsavedChanges = state;
 
 		string newName = state == true
 			? LevelEditor::name + " " + LevelEditor::version + "*"

@@ -24,6 +24,7 @@
 #include "gui_settings.hpp"
 #include "gui_compile.hpp"
 #include "configfile.hpp"
+#include "levelfile.hpp"
 
 using std::cout;
 using std::string;
@@ -40,6 +41,7 @@ using Graphics::Shape::Cube;
 using Graphics::Shape::PointLight;
 using Graphics::Shape::SpotLight;
 using File::ConfigFileManager;
+using File::LevelFile;
 
 namespace Graphics::GUI
 {
@@ -119,12 +121,15 @@ namespace Graphics::GUI
 		{
 			if (ImGui::MenuItem("Save"))
 			{
-				//SceneFile::SaveCurrentScene();
+				LevelFile::SaveLevel();
 				ConfigFileManager::SaveConfigFile();
+
+				if (LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(false);
 			}
 
 			if (ImGui::MenuItem("New level"))
 			{
+				/*
 				int highestFolderNumber = 1;
 				for (const auto& entry : directory_iterator(LevelEditor::filesPath))
 				{
@@ -148,7 +153,8 @@ namespace Graphics::GUI
 				}
 				string newFolderPath = LevelEditor::filesPath + "/Scene" + to_string(highestFolderNumber);
 				create_directory(newFolderPath);
-				//SceneFile::CreateNewScene(newFolderPath + "/scene.txt");
+				//LevelFile::CreateNewScene(newFolderPath + "/scene.txt");
+				*/
 			}
 
 			if (ImGui::MenuItem("Exit")) LevelEditor::Shutdown();
@@ -181,7 +187,7 @@ namespace Graphics::GUI
 						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
 					cout << output;
 
-					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
 				}
 
 				ImGui::EndMenu();
@@ -208,7 +214,7 @@ namespace Graphics::GUI
 						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
 					cout << output;
 
-					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
 				}
 				if (ImGui::MenuItem("Spotlight"))
 				{
@@ -229,7 +235,7 @@ namespace Graphics::GUI
 						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
 					cout << output;
 
-					//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
 				}
 
 				ImGui::EndMenu();

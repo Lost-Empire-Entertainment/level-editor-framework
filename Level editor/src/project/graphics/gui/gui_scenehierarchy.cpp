@@ -16,6 +16,7 @@
 #include "input.hpp"
 #include "render.hpp"
 #include "timemanager.hpp"
+#include "levelfile.hpp"
 
 using std::cout;
 using std::to_string;
@@ -29,6 +30,7 @@ using Physics::Select;
 using Core::Input;
 using Graphics::Render;
 using Core::TimeManager;
+using File::LevelFile;
 
 namespace Graphics::GUI
 {
@@ -128,7 +130,7 @@ namespace Graphics::GUI
 
 				cout << "Deleted " << objName << "\n";
 
-				//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+				if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
 			}
 
 			ImGui::EndPopup();
@@ -156,7 +158,7 @@ namespace Graphics::GUI
 					selectedGameObject->SetName(newNameBuffer);
 				}
 
-				//if (!SceneFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+				if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
 
 				ImGui::CloseCurrentPopup();
 			}

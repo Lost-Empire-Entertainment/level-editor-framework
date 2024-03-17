@@ -61,6 +61,7 @@ set(SOURCE_FILES
 	${SRC_CORE_DIR}/input.cpp
 	${SRC_CORE_DIR}/timemanager.cpp
 	${SRC_FILE_DIR}/configfile.cpp
+	${SRC_FILE_DIR}/levelfile.cpp
 	${SRC_GRAPHICS_DIR}/grid.cpp
 	${SRC_GRAPHICS_DIR}/render.cpp
 	${SRC_GRAPHICS_DIR}/shader.cpp

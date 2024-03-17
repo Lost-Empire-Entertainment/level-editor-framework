@@ -2,6 +2,15 @@
 
 #pragma once
 
+#include <memory>
+
+//level editor
+#include "gameobject.hpp"
+
+using std::shared_ptr;
+
+using Graphics::Shape::GameObject;
+
 namespace Graphics::GUI
 {
 	class SceneHierarchy
@@ -10,6 +19,12 @@ namespace Graphics::GUI
 		static void RenderSceneHierarchy();
 
 	private:
+		static inline char newNameBuffer[64];
+		static inline bool isRenaming;
+		static inline shared_ptr<GameObject> selectedGameObject;
 
+		static void DrawGameObject(shared_ptr<GameObject> obj);
+		static void RightClickPopup();
+		static void RenameGameObject();
 	};
 }

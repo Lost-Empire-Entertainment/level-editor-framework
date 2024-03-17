@@ -13,6 +13,7 @@
 #include "gui.hpp"
 #include "selectobject.hpp"
 #include "input.hpp"
+#include "render.hpp"
 
 using std::cout;
 
@@ -20,16 +21,32 @@ using Graphics::Shape::GameObjectManager;
 using Graphics::Shape::Mesh;
 using Physics::Select;
 using Core::Input;
+using Graphics::Render;
 
 namespace Graphics::GUI
 {
 	void SceneHierarchy::RenderSceneHierarchy()
 	{
-		ImGui::SetNextWindowSizeConstraints(LevelEditorGUI::minSize, LevelEditorGUI::maxSize);
-		ImGui::SetNextWindowPos(LevelEditorGUI::initialPos, ImGuiCond_FirstUseEver);
+		glfwGetFramebufferSize(Render::window, &framebufferWidth, &framebufferHeight);
+
+		//set window width
+		int desiredWidth = 400;
+
+		//set window height
+		int windowPosY = static_cast<int>(20 * LevelEditorGUI::fontScale);
+		float maxWindowHeight = static_cast<float>(framebufferHeight) - static_cast<float>(windowPosY);
+		if (maxWindowHeight < 0) maxWindowHeight = 0;
+
+		ImGui::SetNextWindowPos(
+			ImVec2(0.0f, static_cast<float>(windowPosY)));
+		ImGui::SetNextWindowSize(
+			ImVec2(static_cast<float>(desiredWidth), static_cast<float>(maxWindowHeight)));
 
 		ImGuiWindowFlags windowFlags =
-			ImGuiWindowFlags_NoCollapse;
+			ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoResize
+			| ImGuiWindowFlags_NoMove
+			| ImGuiWindowFlags_NoSavedSettings;
 
 		if (ImGui::Begin("Scene hierarchy", NULL, windowFlags))
 		{

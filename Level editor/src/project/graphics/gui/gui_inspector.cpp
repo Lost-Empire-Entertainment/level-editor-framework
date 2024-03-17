@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <type_ptr.hpp>
 
 //external
 #include "imgui.h"
@@ -15,7 +16,6 @@
 #include "gui.hpp"
 #include "selectobject.hpp"
 #include "render.hpp"
-#include <type_ptr.hpp>
 
 using std::cout;
 using std::string;
@@ -29,11 +29,28 @@ namespace Graphics::GUI
 {
 	void Inspector::RenderInspector()
 	{
-		ImGui::SetNextWindowSizeConstraints(LevelEditorGUI::minSize, LevelEditorGUI::maxSize);
-		ImGui::SetNextWindowPos(LevelEditorGUI::initialPos, ImGuiCond_FirstUseEver);
+		glfwGetFramebufferSize(Render::window, &framebufferWidth, &framebufferHeight);
+
+		//set window width
+		int desiredWidth = 400;
+		int windowPosX = framebufferWidth - desiredWidth;
+		if (windowPosX < 0) windowPosX = 0;
+
+		//set window height
+		int windowPosY = static_cast<int>(20 * LevelEditorGUI::fontScale);
+		float maxWindowHeight = static_cast<float>(framebufferHeight) - static_cast<float>(windowPosY);
+		if (maxWindowHeight < 0) maxWindowHeight = 0;
+
+		ImGui::SetNextWindowPos(
+			ImVec2(static_cast<float>(windowPosX), static_cast<float>(windowPosY)));
+		ImGui::SetNextWindowSize(
+			ImVec2(static_cast<float>(desiredWidth), static_cast<float>(maxWindowHeight)));
 
 		ImGuiWindowFlags windowFlags =
-			ImGuiWindowFlags_NoCollapse;
+			ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoResize
+			| ImGuiWindowFlags_NoMove
+			| ImGuiWindowFlags_NoSavedSettings;
 
 		if (ImGui::Begin("Inpsector", NULL, windowFlags))
 		{

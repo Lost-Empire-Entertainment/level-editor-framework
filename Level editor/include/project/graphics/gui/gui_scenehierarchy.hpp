@@ -19,6 +19,7 @@ namespace Graphics::GUI
 		static void RenderSceneHierarchy();
 
 	private:
+		static inline int framebufferWidth, framebufferHeight;
 		static inline char newNameBuffer[64];
 		static inline bool isRenaming;
 		static inline shared_ptr<GameObject> selectedGameObject;

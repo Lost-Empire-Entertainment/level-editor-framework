@@ -9,6 +9,7 @@ namespace Graphics::GUI
 	public:
 		static void RenderInspector();
 	private:
+		static inline int framebufferWidth, framebufferHeight;
 		static inline const int bufferSize = 32;
 		static inline char inputTextBuffer_objName[bufferSize];
 	};

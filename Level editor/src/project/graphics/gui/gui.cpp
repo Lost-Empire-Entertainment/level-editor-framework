@@ -23,6 +23,7 @@
 #include "gui_scenehierarchy.hpp"
 #include "gui_settings.hpp"
 #include "gui_compile.hpp"
+#include "configfile.hpp"
 
 using std::cout;
 using std::string;
@@ -38,6 +39,7 @@ using Graphics::Render;
 using Graphics::Shape::Cube;
 using Graphics::Shape::PointLight;
 using Graphics::Shape::SpotLight;
+using File::ConfigFileManager;
 
 namespace Graphics::GUI
 {
@@ -56,7 +58,7 @@ namespace Graphics::GUI
 		const char* customConfigPath = tempString.c_str();
 		io.IniFilename = customConfigPath;
 
-		initialPos = ImVec2(200, 150);
+		initialPos = ImVec2(100, 100);
 		initialSize = ImVec2(400, 700);
 		minSize = ImVec2(400, 400);
 
@@ -118,7 +120,7 @@ namespace Graphics::GUI
 			if (ImGui::MenuItem("Save"))
 			{
 				//SceneFile::SaveCurrentScene();
-				//ConfigFileManager::SaveData();
+				ConfigFileManager::SaveConfigFile();
 			}
 
 			if (ImGui::MenuItem("New level"))

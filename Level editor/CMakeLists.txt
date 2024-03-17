@@ -31,6 +31,7 @@ set(SRC_DIR "${CMAKE_SOURCE_DIR}/src")
 
 # Manually added source file paths
 set(SRC_CORE_DIR "${CMAKE_SOURCE_DIR}/src/project/core")
+set(SRC_FILE_DIR "${CMAKE_SOURCE_DIR}/src/project/file")
 set(SRC_GRAPHICS_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics")
 set(SRC_GRAPHICS_SHAPES_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics/shapes")
 set(SRC_GRAPHICS_GUI_DIR "${CMAKE_SOURCE_DIR}/src/project/graphics/gui")
@@ -59,6 +60,7 @@ set(SOURCE_FILES
 	${SRC_CORE_DIR}/core.cpp
 	${SRC_CORE_DIR}/input.cpp
 	${SRC_CORE_DIR}/timemanager.cpp
+	${SRC_FILE_DIR}/configfile.cpp
 	${SRC_GRAPHICS_DIR}/grid.cpp
 	${SRC_GRAPHICS_DIR}/render.cpp
 	${SRC_GRAPHICS_DIR}/shader.cpp
@@ -107,6 +109,7 @@ target_compile_features(Level_editor PRIVATE cxx_std_20)
 target_include_directories(Level_editor PRIVATE 
 	${INCLUDE_DIR}/project
 	${INCLUDE_DIR}/project/core
+	${INCLUDE_DIR}/project/file
 	${INCLUDE_DIR}/project/graphics
 	${INCLUDE_DIR}/project/graphics/shapes
 	${INCLUDE_DIR}/project/graphics/gui

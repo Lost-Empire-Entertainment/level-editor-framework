@@ -66,8 +66,8 @@ namespace Graphics
 
 				//create a window object holding all the windowing data
 		window = glfwCreateWindow(
-			SCR_WIDTH,
-			SCR_HEIGHT,
+			windowWidth,
+			windowHeight,
 			(LevelEditor::name + " " + LevelEditor::version).c_str(),
 			NULL,
 			NULL);
@@ -136,7 +136,7 @@ namespace Graphics
 		GameObjectManager::SetActionTex(actionTex);
 		GameObjectManager::AddTransparentObject(actionTex);
 
-		UpdateAfterRescale(window, SCR_WIDTH, SCR_HEIGHT);
+		UpdateAfterRescale(window, windowWidth, windowHeight);
 	}
 
 	void Render::UpdateAfterRescale(GLFWwindow* window, int width, int height)

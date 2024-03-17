@@ -14,7 +14,7 @@ namespace Graphics::GUI
 {
 	void Settings::RenderSettings()
 	{
-		ImGui::SetNextWindowSizeConstraints(LevelEditorGUI::minSize, LevelEditorGUI::maxSize);
+		ImGui::SetNextWindowSizeConstraints(ImVec2(600, 400), LevelEditorGUI::maxSize);
 		ImGui::SetNextWindowPos(LevelEditorGUI::initialPos, ImGuiCond_FirstUseEver);
 
 		ImGuiWindowFlags windowFlags =
@@ -32,14 +32,21 @@ namespace Graphics::GUI
 				renderSettings = false;
 			}
 
-			ImGuiChildFlags childWindowFlags = 
-				ImGuiWindowFlags_NoScrollbar;
+			ImGuiChildFlags childWindowFlags{}
+			;
 			ImVec2 childSize = 
 				ImVec2(ImGui::GetWindowWidth() - 20, ImGui::GetWindowHeight() - 80);
 
 			ImGui::BeginChild("SettingsChild", childSize, true, childWindowFlags);
 			{
-				ImGui::Text("This is the settings window...");
+				ImVec2 buttonSize = ImVec2(175, 30);
+				if (ImGui::Button("Set game levels path", buttonSize))
+				{
+
+				}
+				ImGui::SameLine();
+				ImGui::SetCursorPosX(ImGui::GetWindowWidth() - 300);
+				ImGui::Text("no path set...");
 
 				ImGui::EndChild();
 			}

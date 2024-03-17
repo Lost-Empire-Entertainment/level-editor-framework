@@ -36,6 +36,14 @@ namespace Utils
 			char delimiter);
 
 		/// <summary>
+		/// Check if the selected file contains the selected string.
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <param name="targetString"></param>
+		/// <returns></returns>
+		static bool FileContainsString(const string& filePath, const string& targetString);
+
+		/// <summary>
 		/// Checks whether the inputted string can be converted to float or not.
 		/// </summary>
 		/// <param name="value"></param>

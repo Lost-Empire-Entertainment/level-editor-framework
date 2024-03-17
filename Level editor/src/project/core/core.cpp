@@ -11,6 +11,7 @@
 #include "render.hpp"
 #include "timemanager.hpp"
 #include "gui.hpp"
+#include "configfile.hpp"
 
 using std::cout;
 using std::wstring;
@@ -23,6 +24,7 @@ using std::filesystem::copy_file;
 using Utils::StringUtils;
 using Graphics::Render;
 using Graphics::GUI::LevelEditorGUI;
+using File::ConfigFileManager;
 
 namespace Core
 {
@@ -94,13 +96,10 @@ namespace Core
 		cout << "Set files path to " << filesPath << "\n";
 
 		//
-		// COPY config.txt TO ENGINE DOCUMENTS FOLDER IF config.txt DOESNT EXIST
+		// REST OF THE INITIALIZATION
 		//
 
-		if (!exists(docsPath + "/config.txt"))
-		{
-			copy_file(filesPath + "/template files/config.txt", docsPath + "/config.txt");
-		}
+		ConfigFileManager::LoadConfigFile();
 
 		Render::RenderSetup();
 

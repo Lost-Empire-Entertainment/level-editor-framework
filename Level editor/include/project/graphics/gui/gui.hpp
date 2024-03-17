@@ -10,7 +10,7 @@ namespace Graphics::GUI
 	class LevelEditorGUI
 	{
 	public:
-		static inline float fontScale = 1.5f;
+		static inline float fontScale;
 
 		static inline ImVec2 initialPos;
 		static inline ImVec2 initialSize;

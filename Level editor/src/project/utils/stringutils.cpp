@@ -3,11 +3,14 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <fstream>
 
 //level editor
 #include "stringutils.hpp"
 
 using std::istringstream;
+using std::ifstream;
+using std::cout;
 
 namespace Utils
 {
@@ -38,6 +41,29 @@ namespace Utils
 			tokens.push_back(token);
 		}
 		return tokens;
+	}
+
+	bool StringUtils::FileContainsString(const string& filePath, const string& targetString)
+	{
+		ifstream file(filePath);
+		if (!file.is_open())
+		{
+			cout << "Error opening file: " << filePath << "\n";
+			return false;
+		}
+
+		string line;
+		while (getline(file, line))
+		{
+			if (line.find(targetString) != string::npos)
+			{
+				file.close();
+				return true;
+			}
+		}
+
+		file.close();
+		return false;
 	}
 
 	bool StringUtils::CanConvertStringToFloat(const string& value)

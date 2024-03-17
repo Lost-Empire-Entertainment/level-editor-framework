@@ -21,6 +21,8 @@
 #include "stringutils.hpp"
 #include "gui_inspector.hpp"
 #include "gui_scenehierarchy.hpp"
+#include "gui_settings.hpp"
+#include "gui_compile.hpp"
 
 using std::cout;
 using std::string;
@@ -234,6 +236,27 @@ namespace Graphics::GUI
 			ImGui::EndMenu();
 		}
 
+		ImGui::SameLine(110 * fontScale * 0.75f);
+
+		if (ImGui::BeginMenu("Window"))
+		{
+			if (ImGui::MenuItem("Settings"))
+			{
+				Settings::renderSettings = true;
+			}
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::SameLine(180 * fontScale * 0.75f);
+
+		if (ImGui::BeginMenu("Compile"))
+		{
+			Compile::renderCompile = true;
+
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMainMenuBar();
 	}
 
@@ -265,6 +288,8 @@ namespace Graphics::GUI
 
 		SceneHierarchy::RenderSceneHierarchy();
 		Inspector::RenderInspector();
+		Settings::RenderSettings();
+		Compile::RenderCompile();
 
 		if (renderUnsavedShutdownWindow) ConfirmUnsavedShutdown();
 		if (renderUnsavedSceneSwitchWindow) ConfirmUnsavedSceneSwitch();

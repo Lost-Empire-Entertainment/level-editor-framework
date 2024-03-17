@@ -71,8 +71,10 @@ set(SOURCE_FILES
 	${SRC_GRAPHICS_SHAPES_DIR}/selectedobjectborder.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/spotlight.cpp
 	${SRC_GRAPHICS_GUI_DIR}/gui.cpp
+	${SRC_GRAPHICS_GUI_DIR}/gui_compile.cpp
 	${SRC_GRAPHICS_GUI_DIR}/gui_inspector.cpp
 	${SRC_GRAPHICS_GUI_DIR}/gui_scenehierarchy.cpp
+	${SRC_GRAPHICS_GUI_DIR}/gui_settings.cpp
 	${SRC_PHYSICS_DIR}/collision.cpp
 	${SRC_PHYSICS_DIR}/selectobject.cpp
 	${SRC_UTILS_DIR}/stringutils.cpp

@@ -1,6 +1,7 @@
 //Copyright (c) <2024> <Lost Empire Entertainment>
 
 #include <iostream>
+#include <iomanip>
 
 //external
 #include "imgui.h"
@@ -14,14 +15,20 @@
 #include "selectobject.hpp"
 #include "input.hpp"
 #include "render.hpp"
+#include "timemanager.hpp"
 
 using std::cout;
+using std::to_string;
+using std::stringstream;
+using std::fixed;
+using std::setprecision;
 
 using Graphics::Shape::GameObjectManager;
 using Graphics::Shape::Mesh;
 using Physics::Select;
 using Core::Input;
 using Graphics::Render;
+using Core::TimeManager;
 
 namespace Graphics::GUI
 {
@@ -50,18 +57,32 @@ namespace Graphics::GUI
 
 		if (ImGui::Begin("Scene hierarchy", NULL, windowFlags))
 		{
-			for (const auto& obj : GameObjectManager::GetObjects())
+			stringstream stream;
+			stream << fixed << setprecision(2) << TimeManager::displayedFPS;
+			ImGui::Text(("FPS: " + stream.str()).c_str());
+
+			ImGuiChildFlags childWindowFlags =
+				ImGuiWindowFlags_NoScrollbar;
+			ImVec2 childSize =
+				ImVec2(ImGui::GetWindowWidth() - 20, ImGui::GetWindowHeight() - 80);
+
+			ImGui::BeginChild("Scene hierarchy child", childSize, true, childWindowFlags);
 			{
-				Mesh::MeshType type = obj->GetMesh()->GetMeshType();
-				if (type != Mesh::MeshType::actionTex
-					&& type != Mesh::MeshType::billboard
-					&& type != Mesh::MeshType::border)
+				for (const auto& obj : GameObjectManager::GetObjects())
 				{
-					DrawGameObject(obj);
+					Mesh::MeshType type = obj->GetMesh()->GetMeshType();
+					if (type != Mesh::MeshType::actionTex
+						&& type != Mesh::MeshType::billboard
+						&& type != Mesh::MeshType::border)
+					{
+						DrawGameObject(obj);
+					}
 				}
+				RightClickPopup();
+				RenameGameObject();
+
+				ImGui::EndChild();
 			}
-			RightClickPopup();
-			RenameGameObject();
 
 			ImGui::End();
 		}
@@ -69,7 +90,9 @@ namespace Graphics::GUI
 
 	void SceneHierarchy::DrawGameObject(shared_ptr<GameObject> obj)
 	{
-		ImGui::Selectable(obj->GetName().c_str(), false, ImGuiSelectableFlags_AllowItemOverlap);
+		string name = obj->GetName().c_str();
+		if (name == "") name = ".";
+		ImGui::Selectable(name.c_str(), false, ImGuiSelectableFlags_AllowItemOverlap);
 
 		if (ImGui::IsItemHovered())
 		{

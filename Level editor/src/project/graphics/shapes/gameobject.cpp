@@ -40,6 +40,8 @@ namespace Graphics::Shape
 		{
 			for (const auto& obj : opaqueObjects)
 			{
+				if (obj->GetName() == "") obj->SetName(".");
+
 				Type type = obj->GetMesh()->GetMeshType();
 				switch (type)
 				{
@@ -83,6 +85,8 @@ namespace Graphics::Shape
 
 			for (const auto& obj : transparentObjects)
 			{
+				if (obj->GetName() == "") obj->SetName(".");
+
 				Type type = obj->GetMesh()->GetMeshType();
 				switch (type)
 				{

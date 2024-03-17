@@ -32,7 +32,12 @@ namespace Graphics::GUI
 				renderSettings = false;
 			}
 
-			if (ImGui::BeginChild("SettingsChild"))
+			ImGuiChildFlags childWindowFlags = 
+				ImGuiWindowFlags_NoScrollbar;
+			ImVec2 childSize = 
+				ImVec2(ImGui::GetWindowWidth() - 20, ImGui::GetWindowHeight() - 80);
+
+			ImGui::BeginChild("SettingsChild", childSize, true, childWindowFlags);
 			{
 				ImGui::Text("This is the settings window...");
 

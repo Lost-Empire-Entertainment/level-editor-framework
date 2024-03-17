@@ -12,6 +12,7 @@
 #include "timemanager.hpp"
 #include "gui.hpp"
 #include "configfile.hpp"
+#include "levelfile.hpp"
 
 using std::cout;
 using std::wstring;
@@ -25,6 +26,7 @@ using Utils::StringUtils;
 using Graphics::Render;
 using Graphics::GUI::LevelEditorGUI;
 using File::ConfigFileManager;
+using File::LevelFile;
 
 namespace Core
 {
@@ -99,6 +101,9 @@ namespace Core
 		// REST OF THE INITIALIZATION
 		//
 
+		LevelFile::levelsPath = docsPath + "/levels";
+		if (!exists(LevelFile::levelsPath)) create_directory(LevelFile::levelsPath);
+
 		ConfigFileManager::LoadConfigFile();
 
 		Render::RenderSetup();
@@ -134,11 +139,19 @@ namespace Core
 
 	void LevelEditor::Shutdown()
 	{
-		cout << "Shutting down...\n\n";
+		if (LevelFile::unsavedChanges)
+		{
+			glfwSetWindowShouldClose(Render::window, GLFW_FALSE);
+			LevelEditorGUI::renderUnsavedShutdownWindow = true;
+		}
+		else
+		{
+			cout << "Shutting down...\n\n";
 
-		LevelEditorGUI::Shutdown();
+			LevelEditorGUI::Shutdown();
 
-		//clean all glfw resources after program is closed
-		glfwTerminate();
+			//clean all glfw resources after program is closed
+			glfwTerminate();
+		}
 	}
 }

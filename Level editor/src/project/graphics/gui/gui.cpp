@@ -129,32 +129,7 @@ namespace Graphics::GUI
 
 			if (ImGui::MenuItem("New level"))
 			{
-				/*
-				int highestFolderNumber = 1;
-				for (const auto& entry : directory_iterator(LevelEditor::filesPath))
-				{
-					path entryPath = entry.path();
-					if (is_directory(entryPath))
-					{
-						string folderName = entryPath.stem().string();
-
-						if (folderName.find("Scene") != string::npos)
-						{
-							size_t pos = folderName.find_first_of('e', folderName.find_first_of('e') + 1);
-							string result = folderName.substr(pos + 1);
-							if (result != ""
-								&& StringUtils::CanConvertStringToInt(result))
-							{
-								int number = stoi(result);
-								if (number == highestFolderNumber) highestFolderNumber = ++number;
-							}
-						}
-					}
-				}
-				string newFolderPath = LevelEditor::filesPath + "/Scene" + to_string(highestFolderNumber);
-				create_directory(newFolderPath);
-				//LevelFile::CreateNewScene(newFolderPath + "/scene.txt");
-				*/
+				LevelFile::CreateLevel();
 			}
 
 			if (ImGui::MenuItem("Exit")) LevelEditor::Shutdown();
@@ -170,24 +145,32 @@ namespace Graphics::GUI
 			{
 				if (ImGui::MenuItem("Cube"))
 				{
-					shared_ptr<GameObject> obj = Cube::InitializeCube();
+					bool canPlaceAssets = LevelFile::currentLevelPath != "";
+					if (!canPlaceAssets)
+					{
+						cout << "Error: Cannot place assets because no level is loaded!\n";
+					}
+					else
+					{
+						shared_ptr<GameObject> obj = Cube::InitializeCube();
 
-					Select::selectedObj = obj;
-					Select::isObjectSelected = true;
+						Select::selectedObj = obj;
+						Select::isObjectSelected = true;
 
-					unsigned int ID = obj->GetID();
-					vec3 pos = obj->GetTransform()->GetPosition();
-					string posX = to_string(pos.x);
-					string posY = to_string(pos.y);
-					string posZ = to_string(pos.z);
+						unsigned int ID = obj->GetID();
+						vec3 pos = obj->GetTransform()->GetPosition();
+						string posX = to_string(pos.x);
+						string posY = to_string(pos.y);
+						string posZ = to_string(pos.z);
 
-					string output =
-						"Successfully created " + obj->GetName() +
-						" with ID " + to_string(obj->GetID()) +
-						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
-					cout << output;
+						string output =
+							"Successfully created " + obj->GetName() +
+							" with ID " + to_string(obj->GetID()) +
+							" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+						cout << output;
 
-					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+						if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					}
 				}
 
 				ImGui::EndMenu();
@@ -197,45 +180,61 @@ namespace Graphics::GUI
 			{
 				if (ImGui::MenuItem("Point light"))
 				{
-					shared_ptr<GameObject> obj = PointLight::InitializePointLight();
+					bool canPlaceAssets = LevelFile::currentLevelPath != "";
+					if (!canPlaceAssets)
+					{
+						cout << "Error: Cannot place assets because no level is loaded!\n";
+					}
+					else
+					{
+						shared_ptr<GameObject> obj = PointLight::InitializePointLight();
 
-					Select::selectedObj = obj;
-					Select::isObjectSelected = true;
+						Select::selectedObj = obj;
+						Select::isObjectSelected = true;
 
-					unsigned int ID = obj->GetID();
-					vec3 pos = obj->GetTransform()->GetPosition();
-					string posX = to_string(pos.x);
-					string posY = to_string(pos.y);
-					string posZ = to_string(pos.z);
+						unsigned int ID = obj->GetID();
+						vec3 pos = obj->GetTransform()->GetPosition();
+						string posX = to_string(pos.x);
+						string posY = to_string(pos.y);
+						string posZ = to_string(pos.z);
 
-					string output =
-						"Successfully created " + obj->GetName() +
-						" with ID " + to_string(obj->GetID()) +
-						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
-					cout << output;
+						string output =
+							"Successfully created " + obj->GetName() +
+							" with ID " + to_string(obj->GetID()) +
+							" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+						cout << output;
 
-					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+						if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					}
 				}
 				if (ImGui::MenuItem("Spotlight"))
 				{
-					shared_ptr<GameObject> obj = SpotLight::InitializeSpotLight();
+					bool canPlaceAssets = LevelFile::currentLevelPath != "";
+					if (!canPlaceAssets)
+					{
+						cout << "Error: Cannot place assets because no level is loaded!\n";
+					}
+					else
+					{
+						shared_ptr<GameObject> obj = SpotLight::InitializeSpotLight();
 
-					Select::selectedObj = obj;
-					Select::isObjectSelected = true;
+						Select::selectedObj = obj;
+						Select::isObjectSelected = true;
 
-					unsigned int ID = obj->GetID();
-					vec3 pos = obj->GetTransform()->GetPosition();
-					string posX = to_string(pos.x);
-					string posY = to_string(pos.y);
-					string posZ = to_string(pos.z);
+						unsigned int ID = obj->GetID();
+						vec3 pos = obj->GetTransform()->GetPosition();
+						string posX = to_string(pos.x);
+						string posY = to_string(pos.y);
+						string posZ = to_string(pos.z);
 
-					string output =
-						"Successfully created " + obj->GetName() +
-						" with ID " + to_string(obj->GetID()) +
-						" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
-					cout << output;
+						string output =
+							"Successfully created " + obj->GetName() +
+							" with ID " + to_string(obj->GetID()) +
+							" at position (" + posX + ", " + posY + ", " + posZ + ")\n";
+						cout << output;
 
-					if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+						if (!LevelFile::unsavedChanges) Render::SetWindowNameAsUnsaved(true);
+					}
 				}
 
 				ImGui::EndMenu();
@@ -270,12 +269,115 @@ namespace Graphics::GUI
 
 	void LevelEditorGUI::ConfirmUnsavedShutdown()
 	{
+		ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2(500, 300));
 
+		ImGuiWindowFlags flags =
+			ImGuiWindowFlags_NoResize
+			| ImGuiWindowFlags_NoDocking
+			| ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoSavedSettings;
+
+		string title = "You have unsaved changes. Save before closing?";
+		ImGui::Begin(title.c_str(), nullptr, flags);
+
+		ImVec2 windowPos = ImGui::GetWindowPos();
+		ImVec2 windowSize = ImGui::GetWindowSize();
+
+		ImVec2 windowCenter(windowPos.x + windowSize.x * 0.5f, windowPos.y + windowSize.y * 0.5f);
+		ImVec2 buttonSize(120, 50);
+		float buttonSpacing = 20.0f;
+
+		ImVec2 button1Pos(
+			windowSize.x * 0.3f - buttonSize.x,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+		ImVec2 button2Pos(
+			windowSize.x * 0.625f - buttonSize.x,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+		ImVec2 button3Pos(
+			windowSize.x * 0.7f,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+
+		ImGui::SetCursorPos(button1Pos);
+		if (ImGui::Button("Save", buttonSize))
+		{
+			LevelFile::SaveLevel();
+			renderUnsavedShutdownWindow = false;
+		}
+
+		ImGui::SetCursorPos(button2Pos);
+		if (ImGui::Button("Don't save", buttonSize))
+		{
+			cout << "Closed engine without saving.\n";
+			LevelFile::unsavedChanges = false;
+			LevelEditor::Shutdown();
+		}
+
+		ImGui::SetCursorPos(button3Pos);
+		if (ImGui::Button("Cancel", buttonSize))
+		{
+			cout << "Cancelled shutdown...\n";
+			renderUnsavedShutdownWindow = false;
+		}
+
+		ImGui::End();
 	}
 
 	void LevelEditorGUI::ConfirmUnsavedSceneSwitch()
 	{
+		ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowSize(ImVec2(500, 300));
 
+		ImGuiWindowFlags flags =
+			ImGuiWindowFlags_NoResize
+			| ImGuiWindowFlags_NoDocking
+			| ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoSavedSettings;
+
+		string title = "You have unsaved changes. Save before switching scenes?";
+		ImGui::Begin(title.c_str(), nullptr, flags);
+
+		ImVec2 windowPos = ImGui::GetWindowPos();
+		ImVec2 windowSize = ImGui::GetWindowSize();
+
+		ImVec2 windowCenter(windowPos.x + windowSize.x * 0.5f, windowPos.y + windowSize.y * 0.5f);
+		ImVec2 buttonSize(120, 50);
+		float buttonSpacing = 20.0f;
+
+		ImVec2 button1Pos(
+			windowSize.x * 0.3f - buttonSize.x,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+		ImVec2 button2Pos(
+			windowSize.x * 0.625f - buttonSize.x,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+		ImVec2 button3Pos(
+			windowSize.x * 0.7f,
+			windowSize.y * 0.5f - buttonSize.y * 0.5f);
+
+		ImGui::SetCursorPos(button1Pos);
+		if (ImGui::Button("Save", buttonSize))
+		{
+			LevelFile::SaveLevel();
+			LevelFile::LoadLevel(LevelFile::targetLevel);
+			renderUnsavedSceneSwitchWindow = false;
+		}
+
+		ImGui::SetCursorPos(button2Pos);
+		if (ImGui::Button("Don't save", buttonSize))
+		{
+			cout << "Switched scene without saving.\n";
+			LevelFile::LoadLevel(LevelFile::targetLevel);
+			renderUnsavedSceneSwitchWindow = false;
+		}
+
+		ImGui::SetCursorPos(button3Pos);
+		if (ImGui::Button("Cancel", buttonSize))
+		{
+			cout << "Cancelled scene switch...\n";
+			renderUnsavedSceneSwitchWindow = false;
+		}
+
+		ImGui::End();
 	}
 
 	void LevelEditorGUI::Render()

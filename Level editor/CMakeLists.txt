@@ -80,6 +80,7 @@ set(SOURCE_FILES
 	${SRC_GRAPHICS_GUI_DIR}/gui_settings.cpp
 	${SRC_PHYSICS_DIR}/collision.cpp
 	${SRC_PHYSICS_DIR}/selectobject.cpp
+	${SRC_UTILS_DIR}/fileutils.cpp
 	${SRC_UTILS_DIR}/stringutils.cpp
 )
 

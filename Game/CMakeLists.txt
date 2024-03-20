@@ -55,8 +55,6 @@ set(GLFW_LIBRARY_PATH "${LIB_DIR}/glfw/glfw3.lib")
 
 # Add Assimp
 set(ASSIMP_LIBRARY_PATH "${LIB_DIR}/assimp")
-target_include_directories(Game PRIVATE ${INCLUDE_DIR}/assimp)
-target_link_directories(Game PRIVATE ${ASSIMP_LIBRARY_PATH})
 
 # Add magic_enum
 add_library(magic_enum INTERFACE)

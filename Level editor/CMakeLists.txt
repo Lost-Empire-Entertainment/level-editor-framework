@@ -39,17 +39,6 @@ set(SRC_PHYSICS_DIR "${CMAKE_SOURCE_DIR}/src/project/physics")
 set(SRC_UTILS_DIR "${CMAKE_SOURCE_DIR}/src/project/utils")
 set(EXTERNAL_DIR "${CMAKE_SOURCE_DIR}/src/external")
 
-# Add the executable
-add_executable(Level_editor ${SOURCE_FILES} ${RESOURCE_FILE})
-
-# Forces the name to be Elypso engine
-set_target_properties(Level_editor PROPERTIES OUTPUT_NAME "Level editor")
-
-target_compile_features(Level_editor PRIVATE cxx_std_20)
-
-# Set the runtime library option
-# target_compile_options(Level_editor PRIVATE /MD)
-
 # Add GLAD
 add_library(glad STATIC ${SRC_DIR}/external/glad/glad.c)
 target_include_directories(glad PUBLIC ${INCLUDE_DIR})
@@ -59,8 +48,6 @@ set(GLFW_LIBRARY_PATH "${LIB_DIR}/glfw/glfw3.lib")
 
 # Add Assimp
 set(ASSIMP_LIBRARY_PATH "${LIB_DIR}/assimp")
-target_include_directories(Level_editor PRIVATE ${INCLUDE_DIR}/assimp)
-target_link_directories(Level_editor PRIVATE ${ASSIMP_LIBRARY_PATH})
 
 # Add magic_enum
 add_library(magic_enum INTERFACE)
@@ -86,6 +73,7 @@ set(SOURCE_FILES
 	${SRC_GRAPHICS_SHAPES_DIR}/billboard.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/cube.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/gameobject.cpp
+	${SRC_GRAPHICS_SHAPES_DIR}/model.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/pointlight.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/selectedobjectaction.cpp
 	${SRC_GRAPHICS_SHAPES_DIR}/selectedobjectborder.cpp
@@ -113,6 +101,17 @@ list(APPEND SOURCE_FILES
 	${EXTERNAL_DIR}/imgui/imgui_widgets.cpp
 	${EXTERNAL_DIR}/stb_image/stb_image.cpp
 )
+
+# Add the executable
+add_executable(Level_editor ${SOURCE_FILES} ${RESOURCE_FILE})
+
+# Force-changes the exe name
+set_target_properties(Level_editor PROPERTIES OUTPUT_NAME "Level editor")
+
+target_compile_features(Level_editor PRIVATE cxx_std_20)
+
+# Set the runtime library option
+# target_compile_options(Level_editor PRIVATE /MD)
 
 target_include_directories(Level_editor PRIVATE 
 	${INCLUDE_DIR}/project

@@ -39,12 +39,28 @@ set(SRC_PHYSICS_DIR "${CMAKE_SOURCE_DIR}/src/project/physics")
 set(SRC_UTILS_DIR "${CMAKE_SOURCE_DIR}/src/project/utils")
 set(EXTERNAL_DIR "${CMAKE_SOURCE_DIR}/src/external")
 
+# Add the executable
+add_executable(Level_editor ${SOURCE_FILES} ${RESOURCE_FILE})
+
+# Forces the name to be Elypso engine
+set_target_properties(Level_editor PROPERTIES OUTPUT_NAME "Level editor")
+
+target_compile_features(Level_editor PRIVATE cxx_std_20)
+
+# Set the runtime library option
+# target_compile_options(Level_editor PRIVATE /MD)
+
 # Add GLAD
 add_library(glad STATIC ${SRC_DIR}/external/glad/glad.c)
 target_include_directories(glad PUBLIC ${INCLUDE_DIR})
 
 # Add GLFW
 set(GLFW_LIBRARY_PATH "${LIB_DIR}/glfw/glfw3.lib")
+
+# Add Assimp
+set(ASSIMP_LIBRARY_PATH "${LIB_DIR}/assimp")
+target_include_directories(Level_editor PRIVATE ${INCLUDE_DIR}/assimp)
+target_link_directories(Level_editor PRIVATE ${ASSIMP_LIBRARY_PATH})
 
 # Add magic_enum
 add_library(magic_enum INTERFACE)
@@ -98,17 +114,6 @@ list(APPEND SOURCE_FILES
 	${EXTERNAL_DIR}/stb_image/stb_image.cpp
 )
 
-# Add the executable
-add_executable(Level_editor ${SOURCE_FILES} ${RESOURCE_FILE})
-
-# Forces the name to be Elypso engine
-set_target_properties(Level_editor PROPERTIES OUTPUT_NAME "Level editor")
-
-target_compile_features(Level_editor PRIVATE cxx_std_20)
-
-# Set the runtime library option
-# target_compile_options(Level_editor PRIVATE /MD)
-
 target_include_directories(Level_editor PRIVATE 
 	${INCLUDE_DIR}/project
 	${INCLUDE_DIR}/project/core
@@ -119,6 +124,7 @@ target_include_directories(Level_editor PRIVATE
 	${INCLUDE_DIR}/project/physics
 	${INCLUDE_DIR}/project/utils
 	${INCLUDE_DIR}/external
+	${INCLUDE_DIR}/external/assimp
 	${INCLUDE_DIR}/external/glad
 	${INCLUDE_DIR}/external/glfw
 	${INCLUDE_DIR}/external/glm
@@ -132,7 +138,7 @@ target_include_directories(Level_editor PRIVATE
 	${INCLUDE_DIR}/external/stb_image
 )
 
-target_link_libraries(Level_editor PRIVATE external_libs glad ${GLFW_LIBRARY_PATH})
+target_link_libraries(Level_editor PRIVATE external_libs glad ${GLFW_LIBRARY_PATH} ${ASSIMP_LIBRARY_PATH})
 
 # Define GLFW_INCLUDE_NONE
 target_compile_definitions(Level_editor PRIVATE GLFW_INCLUDE_NONE)

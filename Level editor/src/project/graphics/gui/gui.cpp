@@ -25,6 +25,7 @@
 #include "gui_compile.hpp"
 #include "configfile.hpp"
 #include "levelfile.hpp"
+#include "fileexplorer.hpp"
 
 using std::cout;
 using std::string;
@@ -42,6 +43,7 @@ using Graphics::Shape::PointLight;
 using Graphics::Shape::SpotLight;
 using File::ConfigFileManager;
 using File::LevelFile;
+using File::FileExplorer;
 
 namespace Graphics::GUI
 {
@@ -130,6 +132,13 @@ namespace Graphics::GUI
 			if (ImGui::MenuItem("New level"))
 			{
 				LevelFile::CreateLevel();
+			}
+
+			if (ImGui::MenuItem("Load level"))
+			{
+				string path = FileExplorer::Select();
+				if (path == "") cout << "Error: Did not get path!\n\n";
+				else LevelFile::LoadLevel(path);
 			}
 
 			if (ImGui::MenuItem("Exit")) LevelEditor::Shutdown();

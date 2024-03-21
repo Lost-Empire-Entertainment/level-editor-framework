@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <memory>
+#include <map>
 
 //external
 #include "glad.h"
@@ -12,6 +13,7 @@
 #include "shader.hpp"
 
 using std::vector;
+using std::map;
 using std::shared_ptr;
 using std::make_shared;
 using glm::vec3;
@@ -70,21 +72,38 @@ namespace Graphics::Shape
 	class Material
 	{
 	public:
+		enum class TextureType
+		{
+			diffuse,
+			specular,
+			normal,
+			height
+		};
+
 		Material(
 			const GLuint& VAO,
 			const GLuint& VBO) :
 			VAO(VAO),
-			VBO(VBO) {}
+			VBO(VBO),
+			EBO(EBO) {}
 		~Material()
 		{
 			unsigned int shaderID = GetShader().ID;
 			glDeleteShader(shaderID);
 			glDeleteVertexArrays(1, &VAO);
 			glDeleteBuffers(1, &VBO);
+			glDeleteBuffers(1, &EBO);
 		}
 
 		void SetVAO(const GLuint& newVAO) { VAO = newVAO; }
 		void SetVBO(const GLuint& newVBO) { VBO = newVBO; }
+		void SetEBO(const GLuint& newEBO) { EBO = newEBO; }
+
+		void New_AddTexture(const TextureType& textureType, const unsigned int& textureID)
+		{
+			textures[textureType] = textureID;
+		}
+
 		void AddTexture(const string& newTextureName, const unsigned int& newTextureID)
 		{
 			textureNames.push_back(newTextureName);
@@ -99,17 +118,29 @@ namespace Graphics::Shape
 
 		const GLuint& GetVAO() const { return VAO; }
 		const GLuint& GetVBO() const { return VBO; }
+		const GLuint& GetEBO() const { return EBO; }
+		const unsigned int& New_GetTextureID(const TextureType& textureType) const
+		{
+			auto it = textures.find(textureType);
+			if (it != textures.end())
+			{
+				return it->second;
+			}
+			else return 0;
+		}
 		const unsigned int& GetTextureID(unsigned int position) const { return textureIDs[position]; }
 		const string& GetTextureName(unsigned int position) const { return textureNames[position]; }
 		const string& GetShaderName(unsigned int position) const { return shaderNames[position]; }
 		const Shader& GetShader() const { return shader; }
 	private:
+		map<TextureType, unsigned int> textures;
 		vector<string> textureNames;
 		vector<unsigned int> textureIDs;
 		vector<string> shaderNames;
 		Shader shader;
 		GLuint VAO;
 		GLuint VBO;
+		GLuint EBO;
 	};
 
 	class BasicShape_Variables
@@ -122,6 +153,43 @@ namespace Graphics::Shape
 		const float& GetShininess() const { return shininess; }
 	private:
 		float shininess;
+	};
+
+	struct AssimpVertex
+	{
+		vec3 pos;
+		vec3 normal;
+		vec2 texCoords;
+		vec3 tangent;
+		vec3 bitangent;
+		int boneIDs = 4;
+		float weights = 4;
+	};
+
+	struct AssimpTexture
+	{
+		unsigned int ID;
+		string type;
+		string path;
+	};
+	class Assimp_Variables
+	{
+		Assimp_Variables(
+			const vector<AssimpVertex>& vertices,
+			const vector<unsigned int>& indices,
+			const vector<AssimpTexture>& textures) :
+			vertices(vertices),
+			indices(indices),
+			textures(textures) {}
+
+		void SetVertices(const vector<AssimpVertex>& newVertices) { vertices = newVertices; }
+		void SetIndices(const vector<unsigned int>& newIndices) { indices = newIndices; }
+		void SetTextures(const vector<AssimpTexture>& newTextures) { textures = newTextures; }
+
+	private:
+		vector<AssimpVertex> vertices;
+		vector<unsigned int> indices;
+		vector<AssimpTexture> textures;
 	};
 
 	class SpotLight_Variables
@@ -204,6 +272,23 @@ namespace Graphics::Shape
 			material(material),
 			basicShape(basicShape) {}
 
+		//assimp gameobject
+		GameObject(
+			const bool& isInitialized,
+			const string& name,
+			const unsigned int& ID,
+			const shared_ptr<Transform>& transform,
+			const shared_ptr<Mesh>& mesh,
+			const shared_ptr<Material>& material,
+			const shared_ptr<Assimp_Variables>& assimp) :
+			isInitialized(isInitialized),
+			name(name),
+			ID(ID),
+			transform(transform),
+			mesh(mesh),
+			material(material),
+			assimp(assimp) {}
+
 		//point light
 		GameObject(
 			const bool& isInitialized,
@@ -246,6 +331,7 @@ namespace Graphics::Shape
 		void SetMesh(const shared_ptr<Mesh>& newMesh) { mesh = newMesh; }
 		void SetMaterial(const shared_ptr<Material>& newMaterial) { material = newMaterial; }
 		void SetBasicShape(const shared_ptr<BasicShape_Variables>& newBasicShape) { basicShape = newBasicShape; }
+		void SetAssimp(const shared_ptr<Assimp_Variables>& newAssimp) { assimp = newAssimp; }
 		void SetPointLight(const shared_ptr<PointLight_Variables>& newPointLight) { pointLight = newPointLight; }
 		void SetSpotLight(const shared_ptr<SpotLight_Variables>& newSpotLight) { spotLight = newSpotLight; }
 
@@ -272,6 +358,7 @@ namespace Graphics::Shape
 		const shared_ptr<Mesh>& GetMesh() const { return mesh; }
 		const shared_ptr<Material>& GetMaterial() const { return material; }
 		const shared_ptr<BasicShape_Variables>& GetBasicShape() const { return basicShape; }
+		const shared_ptr<Assimp_Variables>& GetAssimp() const { return assimp; }
 		const shared_ptr<PointLight_Variables>& GetPointLight() const { return pointLight; }
 		const shared_ptr<SpotLight_Variables>& GetSpotLight() const { return spotLight; }
 		const shared_ptr<GameObject>& GetParent() const { return parent; }
@@ -287,6 +374,7 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh;
 		shared_ptr<Material> material;
 		shared_ptr<BasicShape_Variables> basicShape;
+		shared_ptr<Assimp_Variables> assimp;
 		shared_ptr<PointLight_Variables> pointLight;
 		shared_ptr<SpotLight_Variables> spotLight;
 		shared_ptr<GameObject> parent;

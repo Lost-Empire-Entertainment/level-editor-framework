@@ -152,9 +152,17 @@ namespace Graphics::GUI
 		{
 			if (ImGui::MenuItem("Import model"))
 			{
-				string path = FileExplorer::Select(FileExplorer::SearchType::asset);
-				if (path == "") cout << "Error: Did not get path!\n\n";
-				else cout << "selected " << path << "\n";
+				bool canPlaceAssets = LevelFile::currentLevelPath != "";
+				if (!canPlaceAssets)
+				{
+					cout << "Error: Cannot place assets because no level is loaded!\n";
+				}
+				else
+				{
+					string path = FileExplorer::Select(FileExplorer::SearchType::asset);
+					if (path == "") cout << "Error: Did not get path!\n\n";
+					else cout << "selected " << path << "\n";
+				}
 			}
 
 			if (ImGui::BeginMenu("Shape"))

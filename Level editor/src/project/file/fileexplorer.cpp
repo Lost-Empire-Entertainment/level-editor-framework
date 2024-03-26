@@ -53,9 +53,12 @@ namespace File
 
 		else if (searchType == SearchType::asset)
 		{
-			//restrict file selection to .obj only
-			COMDLG_FILTERSPEC filterSpec[] = { { L"Assets", L"*.obj"} };
-			hr = pFileOpen->SetFileTypes(1, filterSpec);
+			//restrict file selection to .obj, .fbx and .gltf only
+			COMDLG_FILTERSPEC filterSpec[] = { 
+				{ L"Wavefront objects", L"*.obj"},
+				{ L"Autodesk FBX objects", L"*.fbx"},
+				{ L"glTF objects", L"*.gltf"} };
+			hr = pFileOpen->SetFileTypes(3, filterSpec);
 			if (FAILED(hr))
 			{
 				cout << "Error: Failed to set file filter!\n\n";

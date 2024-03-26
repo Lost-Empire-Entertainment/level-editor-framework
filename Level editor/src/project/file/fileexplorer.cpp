@@ -12,7 +12,7 @@ using std::wstring;
 
 namespace File
 {
-	string FileExplorer::Select()
+	string FileExplorer::Select(const SearchType& searchType)
 	{
 		//initialize COM
 		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
@@ -37,15 +37,32 @@ namespace File
 			return "";
 		}
 
-		//restrict file selection to .txt only
-		COMDLG_FILTERSPEC filterSpec[] = { { L"Level files", L"*.txt"} };
-		hr = pFileOpen->SetFileTypes(1, filterSpec);
-		if (FAILED(hr))
+		if (searchType == SearchType::txt)
 		{
-			cout << "Error: Failed to set file filter!\n\n";
-			pFileOpen->Release();
-			CoUninitialize();
-			return "";
+			//restrict file selection to .txt only
+			COMDLG_FILTERSPEC filterSpec[] = { { L"Level files", L"*.txt"} };
+			hr = pFileOpen->SetFileTypes(1, filterSpec);
+			if (FAILED(hr))
+			{
+				cout << "Error: Failed to set file filter!\n\n";
+				pFileOpen->Release();
+				CoUninitialize();
+				return "";
+			}
+		}
+
+		else if (searchType == SearchType::asset)
+		{
+			//restrict file selection to .obj only
+			COMDLG_FILTERSPEC filterSpec[] = { { L"Assets", L"*.obj"} };
+			hr = pFileOpen->SetFileTypes(1, filterSpec);
+			if (FAILED(hr))
+			{
+				cout << "Error: Failed to set file filter!\n\n";
+				pFileOpen->Release();
+				CoUninitialize();
+				return "";
+			}
 		}
 
 		//show the File Open dialog

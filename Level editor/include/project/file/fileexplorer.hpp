@@ -11,6 +11,12 @@ namespace File
 	class FileExplorer
 	{
 	public:
-		static string Select();
+		enum class SearchType
+		{
+			txt,
+			asset
+		};
+
+		static string Select(const SearchType& searchType);
 	};
 }

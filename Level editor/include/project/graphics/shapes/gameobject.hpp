@@ -82,7 +82,8 @@ namespace Graphics::Shape
 
 		Material(
 			const GLuint& VAO,
-			const GLuint& VBO) :
+			const GLuint& VBO,
+			const GLuint& EBO) :
 			VAO(VAO),
 			VBO(VBO),
 			EBO(EBO) {}
@@ -181,6 +182,10 @@ namespace Graphics::Shape
 			vertices(vertices),
 			indices(indices),
 			textures(textures) {}
+
+		const vector<AssimpVertex>& GetVertices() const { return vertices; }
+		const vector<unsigned int>& GetIndices() const { return indices; }
+		const vector<AssimpTexture>& GetTextures() const { return textures; }
 
 		void SetVertices(const vector<AssimpVertex>& newVertices) { vertices = newVertices; }
 		void SetIndices(const vector<unsigned int>& newIndices) { indices = newIndices; }

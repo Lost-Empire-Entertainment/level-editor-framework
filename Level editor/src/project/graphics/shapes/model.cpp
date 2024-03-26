@@ -31,14 +31,24 @@ namespace Graphics::Shape
 			LevelEditor::filesPath + "/" + vertShader,
 			LevelEditor::filesPath + "/" + fragShader);
 
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
-		unsigned int normalNr = 1;
-		unsigned int heightNr = 1;
+		GLuint vao, vbo, ebo;
+
+		glGenVertexArrays(1, &vao);
+		glGenBuffers(1, &vbo);
+		glGenBuffers(1, &ebo);
+
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		//glBufferData(GL_ARRAY_BUFFER, );
+
+		return nullptr;
 	}
 
 	void Model::RenderModel(const shared_ptr<GameObject>& obj, const mat4& view, const mat4& projection)
 	{
-
+		unsigned int diffuseNr = 1;
+		unsigned int specularNr = 1;
+		unsigned int normalNr = 1;
+		unsigned int heightNr = 1;
 	}
 }

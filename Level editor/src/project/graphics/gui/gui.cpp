@@ -136,7 +136,7 @@ namespace Graphics::GUI
 
 			if (ImGui::MenuItem("Load level"))
 			{
-				string path = FileExplorer::Select();
+				string path = FileExplorer::Select(FileExplorer::SearchType::txt);
 				if (path == "") cout << "Error: Did not get path!\n\n";
 				else LevelFile::LoadLevel(path);
 			}
@@ -150,6 +150,13 @@ namespace Graphics::GUI
 
 		if (ImGui::BeginMenu("Asset"))
 		{
+			if (ImGui::MenuItem("Import model"))
+			{
+				string path = FileExplorer::Select(FileExplorer::SearchType::asset);
+				if (path == "") cout << "Error: Did not get path!\n\n";
+				else cout << "selected " << path << "\n";
+			}
+
 			if (ImGui::BeginMenu("Shape"))
 			{
 				if (ImGui::MenuItem("Cube"))

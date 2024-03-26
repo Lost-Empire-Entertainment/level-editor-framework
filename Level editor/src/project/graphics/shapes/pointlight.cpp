@@ -98,7 +98,7 @@ namespace Graphics::Shape
 			LevelEditor::filesPath + "/" + vertShader,
 			LevelEditor::filesPath + "/" + fragShader);
 
-		GLuint vao, vbo;
+		GLuint vao, vbo, ebo;
 
 		glGenVertexArrays(1, &vao);
 		glGenBuffers(1, &vbo);
@@ -111,7 +111,7 @@ namespace Graphics::Shape
 
 		glBindVertexArray(0);
 
-		shared_ptr<Material> mat = make_shared<Material>(vao, vbo);
+		shared_ptr<Material> mat = make_shared<Material>(vao, vbo, ebo);
 		mat->AddShader(vertShader, fragShader, pointLightShader);
 
 		shared_ptr<PointLight_Variables> pointLight = 

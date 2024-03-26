@@ -80,7 +80,7 @@ namespace Graphics::Shape
 			LevelEditor::filesPath + "/shaders/Basic_model.vert",
 			LevelEditor::filesPath + "/shaders/Basic.frag");
 
-		GLuint vao, vbo;
+		GLuint vao, vbo, ebo;
 
 		glGenVertexArrays(1, &vao);
 		glGenBuffers(1, &vbo);
@@ -93,7 +93,7 @@ namespace Graphics::Shape
 
 		glBindVertexArray(0);
 
-		shared_ptr<Material> mat = make_shared<Material>(vao, vbo);
+		shared_ptr<Material> mat = make_shared<Material>(vao, vbo, ebo);
 		mat->AddShader("shaders/Basic_model.vert", "shaders/Basic.frag", borderShader);
 
 		float shininess = 32;

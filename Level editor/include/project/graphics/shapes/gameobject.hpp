@@ -158,11 +158,11 @@ namespace Graphics::Shape
 
 	struct AssimpVertex
 	{
-		vec3 pos;
-		vec3 normal;
-		vec2 texCoords;
-		vec3 tangent;
-		vec3 bitangent;
+		vec3 pos{};
+		vec3 normal{};
+		vec2 texCoords{};
+		vec3 tangent{};
+		vec3 bitangent{};
 		int boneIDs = 4;
 		float weights = 4;
 	};
@@ -173,9 +173,10 @@ namespace Graphics::Shape
 		string type;
 		string path;
 	};
-	class Assimp_Variables
+	class AssimpMesh
 	{
-		Assimp_Variables(
+	public:
+		AssimpMesh(
 			const vector<AssimpVertex>& vertices,
 			const vector<unsigned int>& indices,
 			const vector<AssimpTexture>& textures) :
@@ -277,23 +278,6 @@ namespace Graphics::Shape
 			material(material),
 			basicShape(basicShape) {}
 
-		//assimp gameobject
-		GameObject(
-			const bool& isInitialized,
-			const string& name,
-			const unsigned int& ID,
-			const shared_ptr<Transform>& transform,
-			const shared_ptr<Mesh>& mesh,
-			const shared_ptr<Material>& material,
-			const shared_ptr<Assimp_Variables>& assimp) :
-			isInitialized(isInitialized),
-			name(name),
-			ID(ID),
-			transform(transform),
-			mesh(mesh),
-			material(material),
-			assimp(assimp) {}
-
 		//point light
 		GameObject(
 			const bool& isInitialized,
@@ -336,7 +320,6 @@ namespace Graphics::Shape
 		void SetMesh(const shared_ptr<Mesh>& newMesh) { mesh = newMesh; }
 		void SetMaterial(const shared_ptr<Material>& newMaterial) { material = newMaterial; }
 		void SetBasicShape(const shared_ptr<BasicShape_Variables>& newBasicShape) { basicShape = newBasicShape; }
-		void SetAssimp(const shared_ptr<Assimp_Variables>& newAssimp) { assimp = newAssimp; }
 		void SetPointLight(const shared_ptr<PointLight_Variables>& newPointLight) { pointLight = newPointLight; }
 		void SetSpotLight(const shared_ptr<SpotLight_Variables>& newSpotLight) { spotLight = newSpotLight; }
 
@@ -363,7 +346,6 @@ namespace Graphics::Shape
 		const shared_ptr<Mesh>& GetMesh() const { return mesh; }
 		const shared_ptr<Material>& GetMaterial() const { return material; }
 		const shared_ptr<BasicShape_Variables>& GetBasicShape() const { return basicShape; }
-		const shared_ptr<Assimp_Variables>& GetAssimp() const { return assimp; }
 		const shared_ptr<PointLight_Variables>& GetPointLight() const { return pointLight; }
 		const shared_ptr<SpotLight_Variables>& GetSpotLight() const { return spotLight; }
 		const shared_ptr<GameObject>& GetParent() const { return parent; }
@@ -379,7 +361,6 @@ namespace Graphics::Shape
 		shared_ptr<Mesh> mesh;
 		shared_ptr<Material> material;
 		shared_ptr<BasicShape_Variables> basicShape;
-		shared_ptr<Assimp_Variables> assimp;
 		shared_ptr<PointLight_Variables> pointLight;
 		shared_ptr<SpotLight_Variables> spotLight;
 		shared_ptr<GameObject> parent;

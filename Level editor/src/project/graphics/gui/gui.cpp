@@ -18,6 +18,7 @@
 #include "spotlight.hpp"
 #include "pointlight.hpp"
 #include "selectobject.hpp"
+#include "model.hpp"
 #include "stringutils.hpp"
 #include "gui_inspector.hpp"
 #include "gui_scenehierarchy.hpp"
@@ -41,6 +42,7 @@ using Graphics::Render;
 using Graphics::Shape::Cube;
 using Graphics::Shape::PointLight;
 using Graphics::Shape::SpotLight;
+using Graphics::Shape::Model;
 using File::ConfigFileManager;
 using File::LevelFile;
 using File::FileExplorer;
@@ -161,7 +163,11 @@ namespace Graphics::GUI
 				{
 					string path = FileExplorer::Select(FileExplorer::SearchType::asset);
 					if (path == "") cout << "Error: Did not get path!\n\n";
-					else cout << "selected " << path << "\n";
+					else
+					{
+						cout << "Initializing " << path << "\n";
+						Model::InitializeModel(path);
+					}
 				}
 			}
 
